@@ -1,4 +1,5 @@
 import sys
+import bisect
 from input_converter import InputConverter
 from node import Node
 from movement_evaluator import MovementEvaluator
@@ -21,27 +22,29 @@ if solution_verifier.has_solution(matrix):
 
     initial_node = Node(None, matrix, None)
     explored_nodes_matrix = []
-    frontier = []
+    frontier_sorted_nodes = [] #this list will save the nodes converted to numbers
+    frontier_nodes = []
 
     explored_nodes_matrix.append(binary_searcher.convert_matrix_to_number(initial_node.get_numbers_matrix()))
-    frontier.insert(0, initial_node)
+    frontier_nodes.insert(0, initial_node)
     solution_node = None
 
-    while len(frontier)>0 and solution_node == None:
-        print len(explored_nodes_matrix)#SACARRRRRRRRRRRRRRRRRRRRRRRRRRRRR
-        current_node = frontier.pop()
-        explored_nodes_matrix.append(binary_searcher.convert_matrix_to_number(current_node.get_numbers_matrix()))
-        explored_nodes_matrix.sort()
+    while len(frontier_nodes)>0 and solution_node == None:
+        current_node = frontier_nodes.pop()
+        bisect.insort(explored_nodes_matrix, binary_searcher.convert_matrix_to_number(current_node.get_numbers_matrix()))
         if not solution_verifier.is_solution(current_node.get_numbers_matrix()):
             movements_list = movement_evaluator.get_possible_movements(current_node.get_numbers_matrix())
             for movement in movements_list:
-                updated_matrix = list(matrix_updater.update_matrix(current_node.get_numbers_matrix(), movement))
-                new_node = Node(current_node, list(updated_matrix), movement)
+                updated_matrix = matrix_updater.update_matrix(current_node.get_numbers_matrix(), movement)
                 explored_node = False #for each node is initialize in false
-                if binary_searcher.do_search(explored_nodes_matrix, updated_matrix):
+                frontier_node = False #for each node is initialize in false
+                if binary_searcher.do_search(explored_nodes_matrix, updated_matrix) or binary_searcher.do_search(frontier_sorted_nodes, updated_matrix):
                     explored_node = True
                 if not explored_node:
-                    frontier.insert(0, new_node)
+                    new_node = Node(current_node, updated_matrix, movement)
+                    frontier_nodes.insert(0, new_node)
+                    bisect.insort(frontier_sorted_nodes,
+                                  binary_searcher.convert_matrix_to_number(new_node.get_numbers_matrix()))
         else:
             solution_node = current_node
 

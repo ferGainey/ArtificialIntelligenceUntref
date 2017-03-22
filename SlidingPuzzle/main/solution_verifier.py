@@ -24,7 +24,6 @@ class SolutionVerifier:
                     count += 1
             sum += count
             sum -=1 #the algorithm is giving the correct result + 1. So here the result is adjusted
-        print 'LA SUMA ES:' + str(sum)
         if sum % 2 == 0:
             return True
         else:
