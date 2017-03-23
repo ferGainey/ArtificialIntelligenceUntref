@@ -1,5 +1,6 @@
-class BinarySearch:
+class MatrixConverter:
 
+    """
     def do_search(self, received_list, matrix):
         item = self.convert_matrix_to_number(matrix)
         first = 0
@@ -15,6 +16,7 @@ class BinarySearch:
                 else:
                     first = midpoint + 1
         return found
+        """
 
     def convert_matrix_to_number(self, matrix):
         number_str = ''
