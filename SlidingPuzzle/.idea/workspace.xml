@@ -18,11 +18,31 @@
       <file leaf-file-name="puzzle.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main/puzzle.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-509">
+            <state relative-caret-position="38">
               <caret line="31" column="58" lean-forward="false" selection-start-line="31" selection-start-column="58" selection-end-line="31" selection-end-column="58" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="movement_evaluator.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main/movement_evaluator.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="495">
+              <caret line="42" column="47" lean-forward="false" selection-start-line="42" selection-start-column="47" selection-end-line="42" selection-end-column="47" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="solution_verifier.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main/solution_verifier.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="17" column="92" lean-forward="false" selection-start-line="17" selection-start-column="92" selection-end-line="17" selection-end-column="92" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -62,8 +82,8 @@
         <option value="$PROJECT_DIR$/src/matrix_updater.py" />
         <option value="$PROJECT_DIR$/test/binary_search_test.py" />
         <option value="$PROJECT_DIR$/src/puzzle.py" />
-        <option value="$PROJECT_DIR$/main/solution_verifier.py" />
         <option value="$PROJECT_DIR$/main/puzzle.py" />
+        <option value="$PROJECT_DIR$/main/solution_verifier.py" />
       </list>
     </option>
   </component>
@@ -141,7 +161,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="SlidingPuzzle" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main/puzzle.py" />
-      <option name="PARAMETERS" value="8,6,7,2,5,4,3,0,1" />
+      <option name="PARAMETERS" value="1,2,0,3,4,5,6,7,8,9,10,11,12,13,14,15" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
@@ -431,7 +451,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1301" height="772" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24596465" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -650,7 +670,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main/movement_evaluator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
+        <state relative-caret-position="495">
           <caret line="42" column="47" lean-forward="false" selection-start-line="42" selection-start-column="47" selection-end-line="42" selection-end-column="47" />
           <folding />
         </state>
@@ -658,15 +678,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main/solution_verifier.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" column="99" lean-forward="false" selection-start-line="25" selection-start-column="99" selection-end-line="25" selection-end-column="99" />
+        <state relative-caret-position="255">
+          <caret line="17" column="92" lean-forward="false" selection-start-line="17" selection-start-column="92" selection-end-line="17" selection-end-column="92" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main/puzzle.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-509">
+        <state relative-caret-position="38">
           <caret line="31" column="58" lean-forward="false" selection-start-line="31" selection-start-column="58" selection-end-line="31" selection-end-column="58" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />

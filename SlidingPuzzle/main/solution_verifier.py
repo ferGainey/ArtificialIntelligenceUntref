@@ -14,17 +14,14 @@ class SolutionVerifier:
         numbers_list = []
         for i in range(0, len(numbers_matrix)):
             for j in range(0, len(numbers_matrix[i])):
-                numbers_list.append(numbers_matrix[i][j])
-        sum = 0
+                numbers_list.append(int(numbers_matrix[i][j]))
+        suma = 0 #the correct name is sum, but this word is reserved and can make confusions
         for position in range(0, len(numbers_list)):
-            count = 0
             number = numbers_list[position]
             for i in range(position, len(numbers_list)):
                 if number > numbers_list[i] and numbers_list[i] != 0:
-                    count += 1
-            sum += count
-            sum -=1 #the algorithm is giving the correct result + 1. So here the result is adjusted
-        if sum % 2 == 0:
+                    suma += 1
+        if suma % 2 == 0:
             return True
         else:
             return False
