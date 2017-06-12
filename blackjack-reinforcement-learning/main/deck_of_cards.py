@@ -5,7 +5,6 @@ from card import Card
 class DeckOfCards:
 
     all_cards = []
-    #available_cards = None
 
     def __init__(self):
         self.restart_deck_of_cards()
@@ -14,11 +13,11 @@ class DeckOfCards:
         selected_card = self.all_cards.pop()
         return selected_card
 
-    #put the cards in random positions
+    #Shuffle the deck
     def shuffle_cards(self):
         shuffle(self.all_cards)
 
-    #all the cards get available again
+    #All cards become availiable again
     def restart_deck_of_cards(self):
         suits = ['Spades', 'Diamonds', 'Hearts', 'Clubs']
         for x in range(0, 4):
@@ -43,7 +42,7 @@ class DeckOfCards:
                     card_suit = suits[x]
                     new_card = Card(card_rank, card_suit)
                     self.all_cards.append(new_card)
-            #the Aces creation
+            #The Aces creation
             card_rank = 'Ace'
             card_suit = suits[x]
             new_card = Card(card_rank, card_suit)

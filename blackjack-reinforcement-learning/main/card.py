@@ -78,3 +78,6 @@ class Card:
 
         else:
             print 'Select an existing card suit!'
+
+    def get_value(self):
+        return self.value
