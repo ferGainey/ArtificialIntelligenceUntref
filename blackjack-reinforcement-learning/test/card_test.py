@@ -18,6 +18,13 @@ class TestCard(unittest.TestCase):
         self.assertEqual(self.card_queen_clubs.rank, 'Queen')
         self.assertEqual(self.card_9_clubs.rank, '9')
 
+    def test_card_suit(self):
+        self.assertEqual(self.card_ace_spades.suit, 'Spades')
+        self.assertEqual(self.card_jack_diamonds.suit, 'Diamonds')
+        self.assertEqual(self.card_king_hearts.suit, 'Hearts')
+        self.assertEqual(self.card_queen_clubs.suit, 'Clubs')
+        self.assertEqual(self.card_9_clubs.suit, 'Clubs')
+
 
 if __name__ == '__main__':
     unittest.main()

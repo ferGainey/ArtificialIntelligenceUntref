@@ -40,8 +40,8 @@
       <file leaf-file-name="card_test.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/card_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="19" lean-forward="false" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
+            <state relative-caret-position="165">
+              <caret line="18" column="44" lean-forward="true" selection-start-line="18" selection-start-column="44" selection-end-line="18" selection-end-column="44" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -321,6 +321,12 @@
     <history-entry file="Unittests_in_card_test - 2017.06.11 at 21h 29m 51s.xml">
       <configuration name="Unittests in card_test" configurationId="tests" />
     </history-entry>
+    <history-entry file="Unittests_in_card_test - 2017.06.11 at 21h 32m 26s.xml">
+      <configuration name="Unittests in card_test" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_card_test - 2017.06.11 at 21h 32m 34s.xml">
+      <configuration name="Unittests in card_test" configurationId="tests" />
+    </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1301" height="772" extended-state="6" />
@@ -381,8 +387,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test/card_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="19" lean-forward="false" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
+        <state relative-caret-position="165">
+          <caret line="18" column="44" lean-forward="true" selection-start-line="18" selection-start-column="44" selection-end-line="18" selection-end-column="44" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
