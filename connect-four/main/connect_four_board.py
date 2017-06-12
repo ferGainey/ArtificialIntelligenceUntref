@@ -3,6 +3,7 @@ import os
 from human_player import HumanPlayer
 from ai_player import AIPlayer
 
+
 class ConnectFourBoard(object):
     board_width = 7
     board_height = 6

@@ -3,6 +3,7 @@ from main.connect_four_board import ConnectFourBoard
 from main.ai_player import AIPlayer
 from main.human_player import HumanPlayer
 
+
 class TestAiPlayer(unittest.TestCase):
 
     def setUp(self):
