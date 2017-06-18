@@ -27,7 +27,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="blackjack_game.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="blackjack_game.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main/blackjack_game.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="195">
@@ -51,11 +51,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="players.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="players.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main/players.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2130">
-              <caret line="142" column="11" lean-forward="false" selection-start-line="142" selection-start-column="11" selection-end-line="142" selection-end-column="11" />
+            <state relative-caret-position="188">
+              <caret line="139" column="52" lean-forward="true" selection-start-line="139" selection-start-column="52" selection-end-line="139" selection-end-column="52" />
               <folding />
             </state>
           </provider>
@@ -103,8 +103,8 @@
         <option value="$PROJECT_DIR$/test/card_test.py" />
         <option value="$PROJECT_DIR$/test/player_test.py" />
         <option value="$PROJECT_DIR$/test/players_test.py" />
-        <option value="$PROJECT_DIR$/main/players.py" />
         <option value="$PROJECT_DIR$/main/blackjack_game.py" />
+        <option value="$PROJECT_DIR$/main/players.py" />
       </list>
     </option>
   </component>
@@ -444,9 +444,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.18 at 01h 11m 38s.xml">
-      <configuration name="Unittests in blackjack_game_test" configurationId="tests" />
-    </history-entry>
     <history-entry file="Unittests_in_blackjack_game_test - 2017.06.18 at 01h 13m 59s.xml">
       <configuration name="Unittests in blackjack_game_test" configurationId="tests" />
     </history-entry>
@@ -472,6 +469,9 @@
       <configuration name="Unittests in blackjack_game_test" configurationId="tests" />
     </history-entry>
     <history-entry file="Unittests_in_blackjack_game_test - 2017.06.18 at 01h 53m 08s.xml">
+      <configuration name="Unittests in blackjack_game_test" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.18 at 11h 07m 20s.xml">
       <configuration name="Unittests in blackjack_game_test" configurationId="tests" />
     </history-entry>
   </component>
@@ -630,14 +630,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main/players.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2130">
-          <caret line="142" column="11" lean-forward="false" selection-start-line="142" selection-start-column="11" selection-end-line="142" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main/blackjack_game.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
@@ -645,6 +637,14 @@
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/players.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="139" column="52" lean-forward="true" selection-start-line="139" selection-start-column="52" selection-end-line="139" selection-end-column="52" />
+          <folding />
         </state>
       </provider>
     </entry>
