@@ -21,8 +21,8 @@ class BlackjackGame:
 
         self.active = True  # As the game begins, we set this flag the True value
         training_flag = True #It's time to train!
-        #TRAIN 999 times!! It
-        training_repetitions = 999 #this number can be changed
+        #TRAIN 9999 times!! It
+        training_repetitions = 9999 #this number can be changed
         for x in range(0,training_repetitions):
             self.begin_hand(training_flag)
             self.player.ask_if_continues()  # The player if asked if he wants to keep playing
@@ -30,6 +30,7 @@ class BlackjackGame:
 
         training_flag = False #I'm tired of training, I wan to play seriously!!
         print 'END OF TRAINING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+        print self.player.fg_values_matrix
         while (self.not_ended() and self.player.ask_if_continues()):
 
             self.begin_hand(training_flag)
@@ -106,10 +107,7 @@ class BlackjackGame:
                 if training_flag: self.player.update_fg_values('lose')
             self.player.restart_temp_state_action()
 
-            #TODO: Calculate results. If player's hand value is higher
-            #TODO: than dealer's hand value, then the player wins.
             #TODO: If both have the same hand value, the bid is returned.
-            #TODO: If anyone's hand value is over 21, he loses
 
 
 

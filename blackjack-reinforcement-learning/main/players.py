@@ -61,6 +61,7 @@ class HumanPlayer(Player):
         pass
 
     def ask_if_continues(self):
+        #To modify
         random_number = randint(0, 9)
         if random_number < 1:
             return False
@@ -93,6 +94,7 @@ class HumanPlayer(Player):
                 if self.calculate_value() <= 20:
                     self.temp_state_action.append(((self.calculate_value(), dealer_original_value), 'stand'))
                 return True
+        #when it is not training
         elif self.calculate_value() <= 20:
             # compare the values, if stand_value is higher than continue_value, the next action will be stand
             stand_value = self.fg_values_matrix[(self.calculate_value(), dealer_original_value), 'stand']
