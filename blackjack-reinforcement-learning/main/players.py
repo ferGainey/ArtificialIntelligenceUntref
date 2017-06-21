@@ -55,19 +55,18 @@ class HumanPlayer(Player):
 
 
     def bet(self):
-        #TODO: Implement
         #This must get the player's bet from the command line
         #Returns the bet
-        pass
+        self.coins -= 1
+        return 1 #The automated player only bets 1 coin
 
     def ask_if_continues(self):
         #To modify
         random_number = randint(0, 9)
-        if random_number < 1:
+        if random_number < 0.01: #It will likely continue forever!
             return False
         else:
             return True
-        #TODO: Implement
         #Returns true if the player keeps playing
         #Returns false to stop playing
         #pass
@@ -126,10 +125,6 @@ class HumanPlayer(Player):
             self.get_card(new_card)
             print str(new_card.rank) + ' of ' + str(new_card.suit)
 
-        if (self.calculate_value() > 21):
-
-             #TODO: Tell the game the player loses
-             pass
 
     #the fg_values that are updated, are those that take you to directly win or lose. The previous values do not get updated
     def update_fg_values(self, result):
