@@ -157,7 +157,7 @@ class Dealer(Player):
 
     def make_move(self, player_value):
 
-        while(self.calculate_value() < player_value and player_value <= 21):
+        while(self.calculate_value() < player_value and player_value <= 21 and self.calculate_value() < 17):
             new_card = self.game.get_deck().give_a_card()
             self.get_card(new_card)
             print str(new_card.rank) + ' of ' + str(new_card.suit)

@@ -10,6 +10,8 @@ class BlackjackGame:
     dealer = None
     player = None
     active = None #This indicates if the game is active or not
+    human_victories = 0
+    dealer_victories = 0
 
     def __init__(self):
         self.deck_of_cards = DeckOfCards()
@@ -21,21 +23,31 @@ class BlackjackGame:
 
         self.active = True  # As the game begins, we set this flag the True value
         training_flag = True #It's time to train!
-        #TRAIN 999 times!! It
-        training_repetitions = 999 #this number can be changed
+        print '\n BEGIN OF TRAINING'
+        #TRAIN 2000 times!! It
+        training_repetitions = 2000 #this number can be changed
         for x in range(0,training_repetitions):
+            round_number = x + 1
+            print '\n ROUND OF TRAINING #' + str(round_number)
             self.begin_hand(training_flag)
             self.player.ask_if_continues()  # The player if asked if he wants to keep playing
             self.deck_of_cards.restart_deck_of_cards()
 
         training_flag = False #I'm tired of training, I wan to play seriously!!
         print 'END OF TRAINING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-        while (self.not_ended() and self.player.ask_if_continues()):
 
+        for y in range(0,250):
+            round_number = y + 1
+            print '\n ROUND #' + str(round_number)
             self.begin_hand(training_flag)
             #No hace nada aca! #self.player.ask_if_continues() #The player if asked if he wants to keep playing
             self.deck_of_cards.restart_deck_of_cards()
         #print self.player.fg_values_matrix
+
+        print "\n\n\nHUMAN VICTORIES = " + str(self.human_victories)
+        print "\nDEALER VICTORIES = " + str(self.dealer_victories)
+        print "\nTIES = " + str(250 - (self.dealer_victories + self.human_victories))
+
 
 
     def not_ended(self):
@@ -89,21 +101,25 @@ class BlackjackGame:
             #print player_value
             #print self.dealer.calculate_value()
             if player_value > 21:
-                print ' \nThe Dealer WIN (Human Has more than 21)'
+                print ' \nThe Dealer WINS (Human Has more than 21)'
                 print '-------------------------------------------------'
                 if training_flag: self.player.update_fg_values('lose')
+                else: self.dealer_victories += 1
             elif self.dealer.calculate_value() > 21:
-                print '\nHuman Player WIN. (Dealer has more than 21)'
+                print '\nHuman Player WINS. (Dealer has more than 21)'
                 print '-------------------------------------------------'
                 if training_flag: self.player.update_fg_values('win')
+                else: self.human_victories += 1
             elif (21 - player_value) < (21 - self.dealer.calculate_value()):
-                print "\nHuman Player WIN. (Have better hand)"
+                print "\nHuman Player WINS. (Has better hand)"
                 print '-------------------------------------------------'
                 if training_flag: self.player.update_fg_values('win')
+                else: self.human_victories += 1
             elif (21 - player_value) > (21 - self.dealer.calculate_value()):
-                print "\nThe Dealer WIN. (Have better hand)"
+                print "\nThe Dealer WINS. (Has better hand)"
                 print '-------------------------------------------------'
                 if training_flag: self.player.update_fg_values('lose')
+                else: self.dealer_victories += 1
             self.player.restart_temp_state_action()
 
             #TODO: Calculate results. If player's hand value is higher
