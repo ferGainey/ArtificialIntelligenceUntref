@@ -4,6 +4,7 @@ class Player:
 
     game = None
     hand = []
+    victories = 0
 
     def get_card(self, card):
         self.hand.append(card)
@@ -18,6 +19,9 @@ class Player:
 
         return value
 
+    def compute_victory(self):
+        self.victories += 1
+
 
 class HumanPlayer(Player):
 
@@ -25,6 +29,8 @@ class HumanPlayer(Player):
     actions = []
     states = []
     fg_values_matrix = {}
+    ace_values_matrix = {}
+    split_matrix = {}
     temp_state_action = []
 
     def __init__(self, game, coins):
@@ -51,6 +57,10 @@ class HumanPlayer(Player):
                 current_action = self.actions[y]
                 self.fg_values_matrix[current_state, current_action] = 0.5
 
+        #Initialize the Ace possible values. It can be 1 or 11
+        #The initial value is 0.5 for both Ace possibility
+        self.ace_values_matrix[1] = 0.5
+        self.ace_values_matrix[11] = 0.5
 
 
 
@@ -60,8 +70,16 @@ class HumanPlayer(Player):
         self.coins -= 1
         return 1 #The automated player only bets 1 coin
 
+    def get_prize(self, prize):
+        #This gives the player the prize if won a hand
+        self.coins += prize
+
+    def print_victories(self):
+        print 'Player won ' + str(self.victories) + ' times'
+
     def ask_if_continues(self):
         #To modify
+
         random_number = randint(0, 9)
         if random_number < 0.01: #It will likely continue forever!
             return False
@@ -82,10 +100,96 @@ class HumanPlayer(Player):
         #TODO: Implement
         pass
 
+    def have_an_ace(self):
+        for card in self.hand:
+            if (card.rank == 'Ace'):
+                return True
+
+        return False
+
+    def have_more_than_1_ace(self):
+        aces_count = 0
+        for card in self.hand:
+            if (card.rank == 'Ace'): aces_count += 1
+
+        if (aces_count > 1): return True
+        else: return False
+
+    def define_ace_value(self, training_flag):
+
+        #This method should decide the value of every ace you've got
+
+        #Unused code
+        """
+        if self.have_more_than_1_ace():
+            #Aces are naturally 1. If I have more than 1, then I'll set one of them to 11
+            #After that, I'll check that I'm not over 21.
+            for card in self.hand:
+
+                if card.get_value() == 1:
+                    card.set_ace_value(11)
+                    break
+                    #This line is necessary to get out of the loop whenever the first ace is reached
+
+            if (self.calculate_value() > 21):
+
+                #If you are over 21, then set every Ace to 1
+                for card in self.hand:
+
+                    if card.get_value() == 11:
+                        card.set_value(1)
+        """
+
+
+        if training_flag: #When I'm training, I choose randomly
+
+            number = randint(0, 9)
+
+            if (number > 5):
+                for card in self.hand:
+
+                    if card.get_value() == 1:
+                        card.set_value(11)
+                        break #Only the first one is turned to 11, if you have more than one
+
+            else:
+                for card in self.hand:
+
+                    if card.get_value() == 11:
+                        card.set_value(1)
+
+
+        else: #If I'm not training, I just pick the best option from the matrix
+
+            one_value = self.ace_values_matrix[1]
+            eleven_value = self.ace_values_matrix[11]
+
+            if one_value >= eleven_value:
+
+                for card in self.hand:
+
+                    if card.get_value() == 11:
+                        card.set_value(1)
+
+            else:
+
+                for card in self.hand:
+
+                    if card.get_value() == 1:
+                        card.set_value(11)
+                        break
+                        #Again, the break line is necessary because you can only have
+                        #ONE eleven-ace per hand, or you'd be over 21
+
     def stand(self, dealer_original_value, training_flag):
+
+        if (self.have_an_ace):
+            self.define_ace_value(training_flag)
+
         if training_flag:
+
             random_number = randint(0, 9)
-            if random_number < 3:
+            if random_number < 5:
                 if (self.calculate_value() <= 20):
                     self.temp_state_action.append(((self.calculate_value(), dealer_original_value),'continue'))
                 return False
@@ -95,6 +199,7 @@ class HumanPlayer(Player):
                 return True
         #when it is not training
         elif self.calculate_value() <= 20:
+
             # compare the values, if stand_value is higher than continue_value, the next action will be stand
             stand_value = self.fg_values_matrix[(self.calculate_value(), dealer_original_value), 'stand']
             #print stand_value
@@ -107,8 +212,7 @@ class HumanPlayer(Player):
         return True
         #Returns true if the player chooses to stand
         #Returns false if the player chooses to get another card
-        #TODO: Implement
-        #pass
+
 
     def make_move(self, dealer_original_value, training_flag):
         """
@@ -130,14 +234,35 @@ class HumanPlayer(Player):
     def update_fg_values(self, result):
         number = 0
         if result == 'win':
-            number = 0.01
+            number = 0.02
         elif result == 'lose':
-            number = -0.01
-        """
-        #with this code you update the complete path
+            number = -0.04
+
+        #self.update_full_path_values(number)
+        self.update_only_the_terminal_value(number)
+        #self.update_every_value(number) //TODO: Implement and see how it changes the results. This means, add value to the winning node, substract value from every other
+
+        if self.have_an_ace():
+
+            #Ace values in the matrix are updated
+            ace_value = 1
+
+            for card in self.hand:
+                if (card.get_value() == 11): ace_value = 11
+
+            if result == 'win':
+                number = 0.02
+
+            elif result == 'lose':
+                number = -0.04
+
+            self.ace_values_matrix[ace_value] += number
+
+    def update_full_path_values(self, number):
         for x in range(0, len(self.temp_state_action)):
             self.fg_values_matrix[self.temp_state_action[x]] += number
-        """
+
+    def update_only_the_terminal_value(self, number):
         self.fg_values_matrix[self.temp_state_action[len(self.temp_state_action) - 1]] += number
 
     def restart_temp_state_action(self):
@@ -159,8 +284,6 @@ class Dealer(Player):
             self.get_card(new_card)
             print str(new_card.rank) + ' of ' + str(new_card.suit)
 
-        if (self.calculate_value() > 21):
 
-            #TODO: Tell the game the dealer
-            pass
-
+    def print_victories(self):
+        print 'Dealer won ' + str(self.victories) + ' times'

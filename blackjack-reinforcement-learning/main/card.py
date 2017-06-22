@@ -6,6 +6,9 @@ class Card:
 
     def __init__(self, rank, suit):
 
+        self.initialize_values(rank, suit)
+
+    def initialize_values(self, rank, suit):
         if suit.lower() == 'diamonds' or suit.lower() == 'spades' or suit.lower() == 'clubs' or suit.lower() == 'hearts':
 
             if rank == 'Ace':
@@ -81,3 +84,8 @@ class Card:
 
     def get_value(self):
         return self.value
+
+    def set_value(self, value):
+
+        if (self.rank == 'Ace'):
+            self.value = value

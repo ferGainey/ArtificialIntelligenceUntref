@@ -11,6 +11,7 @@ class BlackjackGame:
     player = None
     active = None #This indicates if the game is active or not
 
+
     def __init__(self):
         self.deck_of_cards = DeckOfCards()
         self.dealer = Dealer(self)
@@ -21,23 +22,34 @@ class BlackjackGame:
 
         self.active = True  # As the game begins, we set this flag the True value
         training_flag = True #It's time to train!
-        #TRAIN 999 times!!
-        training_repetitions = 999 #this number can be changed
+        training_repetitions = 2000 #this number can be changed
         for x in range(0, training_repetitions):
+            print 'Training hand n' + str(x) + '\n'
             self.begin_hand(training_flag)
-            print 'Hand ' + str(x) + '\n'
-            print self.player.fg_values_matrix
-            print '\n'
+            print 'Q-Matrix: ' + str(self.player.fg_values_matrix) + '\n'
+            print 'Ace-Matrix: ' + str(self.player.ace_values_matrix) + '\n'
+            print 'Split-Matrix: ' + str(self.player.split_matrix) + '\n'
             self.deck_of_cards.restart_deck_of_cards()
 
         training_flag = False #I'm tired of training, I want to play seriously!!
         print 'END OF TRAINING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-        while (self.not_ended() and self.player.ask_if_continues()):
 
+        #On the while condition we could ask if the player wants to keep playing,
+        #But here we prefer the automated player to play a fixed set of hands, let's say, 100
+        real_hands_to_play = 100
+        i = 0
+        while (self.not_ended() and i < real_hands_to_play):
+
+            i+=1
+            print 'Real hand n' + str(i) + '\n'
             self.begin_hand(training_flag)
-            #No hace nada aca! #self.player.ask_if_continues() #The player if asked if he wants to keep playing
             self.deck_of_cards.restart_deck_of_cards()
-        #print self.player.fg_values_matrix
+            print 'Q-Matrix: ' + str(self.player.fg_values_matrix) + '\n'
+            print 'Ace-Matrix: ' + str(self.player.ace_values_matrix) + '\n'
+            print 'Split-Matrix: ' + str(self.player.split_matrix) + '\n'
+
+        self.player.print_victories()
+        self.dealer.print_victories()
 
 
     def not_ended(self):
@@ -71,6 +83,11 @@ class BlackjackGame:
             print 'BlackJack! You win'
             self.player.get_prize(3*bet)
 
+        elif (self.player.calculate_value() == self.dealer.calculate_value()):
+
+            print "It's a tie! Your bet is refunded"
+            self.player.get_prize(bet)
+
         else:
 
             if (self.player.has_two_equal_valued_cards):
@@ -94,20 +111,25 @@ class BlackjackGame:
                 print ' \nThe Dealer WINS! (Human got over 21)'
                 print '-------------------------------------------------'
                 if training_flag: self.player.update_fg_values('lose')
+                else: self.dealer.compute_victory()
             elif self.dealer.calculate_value() > 21:
                 print '\nHuman Player WINS! (Dealer got over 21)'
                 print '-------------------------------------------------'
                 self.player.get_prize(2*bet)
                 if training_flag: self.player.update_fg_values('win')
+                else: self.player.compute_victory()
             elif (21 - player_value) < (21 - self.dealer.calculate_value()):
                 print "\nHuman Player WINS! (Has a better score)"
                 print '-------------------------------------------------'
                 self.player.get_prize(2*bet)
                 if training_flag: self.player.update_fg_values('win')
+                else: self.player.compute_victory()
             elif (21 - player_value) > (21 - self.dealer.calculate_value()):
                 print "\nThe Dealer WINS! (Has a better score)"
                 print '-------------------------------------------------'
                 if training_flag: self.player.update_fg_values('lose')
+                else: self.dealer.compute_victory()
+
             self.player.restart_temp_state_action()
 
             #TODO: If both have the same hand value, the bid is returned.
