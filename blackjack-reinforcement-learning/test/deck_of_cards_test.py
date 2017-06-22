@@ -1,5 +1,5 @@
 import unittest
-from deck_of_cards import DeckOfCards
+from main.deck_of_cards import DeckOfCards
 
 
 class TestDeckOfCards(unittest.TestCase):

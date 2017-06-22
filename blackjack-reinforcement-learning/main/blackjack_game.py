@@ -94,9 +94,9 @@ class BlackjackGame:
 
             if (self.player.has_two_equal_valued_cards):
 
-                if (self.player.wants_to_split()):
+                if (self.player.wants_to_split(training_flag)):
 
-                    self.split_hand(training_flag) #Code the spit hand
+                    self.split_hand(training_flag) #Code the split hand
 
             dealer_original_value = self.dealer.calculate_value()
 

@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 import unittest
-from players import HumanPlayer
+from main.players import HumanPlayer
 
 
 class TestHumanPlayer(unittest.TestCase):
