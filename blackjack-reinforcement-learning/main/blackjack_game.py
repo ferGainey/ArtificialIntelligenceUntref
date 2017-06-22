@@ -82,11 +82,13 @@ class BlackjackGame:
 
             print 'BlackJack! You win'
             self.player.get_prize(3*bet)
+            return 'win'
 
         elif (self.player.calculate_value() == self.dealer.calculate_value()):
 
             print "It's a tie! Your bet is refunded"
             self.player.get_prize(bet)
+            return 'tie'
 
         else:
 
@@ -94,7 +96,7 @@ class BlackjackGame:
 
                 if (self.player.wants_to_split()):
 
-                    self.split_hand() #Code the spit hand
+                    self.split_hand(training_flag) #Code the spit hand
 
             dealer_original_value = self.dealer.calculate_value()
 
@@ -107,42 +109,52 @@ class BlackjackGame:
 
             #print player_value
             #print self.dealer.calculate_value()
+            result = ''
             if player_value > 21:
                 print ' \nThe Dealer WINS! (Human got over 21)'
                 print '-------------------------------------------------'
                 if training_flag: self.player.update_fg_values('lose')
                 else: self.dealer.compute_victory()
+                result = 'lose'
             elif self.dealer.calculate_value() > 21:
                 print '\nHuman Player WINS! (Dealer got over 21)'
                 print '-------------------------------------------------'
                 self.player.get_prize(2*bet)
                 if training_flag: self.player.update_fg_values('win')
                 else: self.player.compute_victory()
+                result = 'win'
             elif (21 - player_value) < (21 - self.dealer.calculate_value()):
                 print "\nHuman Player WINS! (Has a better score)"
                 print '-------------------------------------------------'
                 self.player.get_prize(2*bet)
                 if training_flag: self.player.update_fg_values('win')
                 else: self.player.compute_victory()
+                result = 'win'
             elif (21 - player_value) > (21 - self.dealer.calculate_value()):
                 print "\nThe Dealer WINS! (Has a better score)"
                 print '-------------------------------------------------'
                 if training_flag: self.player.update_fg_values('lose')
                 else: self.dealer.compute_victory()
+                result = 'lose'
 
             self.player.restart_temp_state_action()
-
-            #TODO: If both have the same hand value, the bid is returned.
-
+            return result
 
 
-    def split_hand(self):
-        #TODO: Implement
+    def split_hand(self, training_flag):
         #If the player chooses to split, then two 'sub-hands' are played
         #instead of one. Each hand with one of the cards, and each hand
         #with the same bet. Obviously, if the player chooses to split, he
         #must bet again the same quantity.
-        pass
+        points = 0
+        result1 = self.begin_hand(training_flag)
+        result2 = self.begin_hand(training_flag)
+
+        if (result1 == 'win'): points +=1
+
+        if (result2 == 'win'): points +=1
+
+        if (training_flag): self.player.update_split_matrix(points)
 
 
 

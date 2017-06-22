@@ -61,6 +61,8 @@ class HumanPlayer(Player):
         #The initial value is 0.5 for both Ace possibility
         self.ace_values_matrix[1] = 0.5
         self.ace_values_matrix[11] = 0.5
+        self.split_matrix['yes'] = 0.5
+        self.split_matrix['no'] = 0.5
 
 
 
@@ -94,11 +96,19 @@ class HumanPlayer(Player):
         if(self.hand[0].get_value() == self.hand[1].get_value()): return True
         else: return False
 
-    def wants_to_split(self):
+    def wants_to_split(self, training_flag):
         #Returns true if the player chooses to split
         #Returns false if the player chooses to keep playing without splitting
-        #TODO: Implement
-        pass
+        if (training_flag):
+
+            number = randint(0,9)
+            if (number > 5): return True
+            else: return False
+
+        else:
+
+            if self.split_matrix['yes'] >= self.split_matrix['no']: return True
+            else: return False
 
     def have_an_ace(self):
         for card in self.hand:
@@ -251,12 +261,19 @@ class HumanPlayer(Player):
                 if (card.get_value() == 11): ace_value = 11
 
             if result == 'win':
-                number = 0.02
+                self.ace_values_matrix[ace_value] += 0.02
+                if ace_value == 11:
+                    self.ace_values_matrix[1] -= 0.04
+                elif ace_value == 1:
+                    self.ace_values_matrix[11] -= 0.04
 
             elif result == 'lose':
-                number = -0.04
+                self.ace_values_matrix[ace_value] -= 0.04
+                if ace_value == 11:
+                    self.ace_values_matrix[1] += 0.02
+                elif ace_value == 1:
+                    self.ace_values_matrix[11] += 0.02
 
-            self.ace_values_matrix[ace_value] += number
 
     def update_full_path_values(self, number):
         for x in range(0, len(self.temp_state_action)):
@@ -264,6 +281,18 @@ class HumanPlayer(Player):
 
     def update_only_the_terminal_value(self, number):
         self.fg_values_matrix[self.temp_state_action[len(self.temp_state_action) - 1]] += number
+
+    def update_split_matrix(self, points):
+        if (points == 2):
+            self.split_matrix['yes'] += 0.04
+            self.split_matrix['no'] -= 0.02
+
+        elif (points == 0):
+            self.split_matrix['no'] += 0.04
+            self.split_matrix['yes'] -= 0.02
+
+        #If you win 1 and lose 1 split hand, the matrix stays the same
+
 
     def restart_temp_state_action(self):
         self.temp_state_action = []
