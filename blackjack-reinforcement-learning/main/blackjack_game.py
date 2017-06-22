@@ -147,7 +147,10 @@ class BlackjackGame:
         #with the same bet. Obviously, if the player chooses to split, he
         #must bet again the same quantity.
         points = 0
+        print 'SPLIT!\n'
+        print 'Split hand 1\n'
         result1 = self.begin_hand(training_flag)
+        print 'Split hand 2\n'
         result2 = self.begin_hand(training_flag)
 
         if (result1 == 'win'): points +=1
