@@ -36,17 +36,17 @@ class BlackjackGame:
         training_flag = False #I'm tired of training, I wan to play seriously!!
         print 'END OF TRAINING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
 
-        for y in range(0,250):
+        for y in range(0,500):
             round_number = y + 1
             print '\n ROUND #' + str(round_number)
             self.begin_hand(training_flag)
             #No hace nada aca! #self.player.ask_if_continues() #The player if asked if he wants to keep playing
             self.deck_of_cards.restart_deck_of_cards()
-        #print self.player.fg_values_matrix
+        print self.player.fg_values_matrix
 
         print "\n\n\nHUMAN VICTORIES = " + str(self.human_victories)
         print "\nDEALER VICTORIES = " + str(self.dealer_victories)
-        print "\nTIES = " + str(250 - (self.dealer_victories + self.human_victories))
+        print "\nTIES = " + str(500 - (self.dealer_victories + self.human_victories))
 
 
 
