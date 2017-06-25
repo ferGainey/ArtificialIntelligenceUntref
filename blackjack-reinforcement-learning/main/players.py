@@ -29,7 +29,6 @@ class HumanPlayer(Player):
     actions = []
     states = []
     fg_values_matrix = {}
-    ace_values_matrix = {}
     split_matrix = {}
     temp_state_action = []
 
@@ -59,8 +58,6 @@ class HumanPlayer(Player):
 
         #Initialize the Ace possible values. It can be 1 or 11
         #The initial value is 0.5 for both Ace possibility
-        self.ace_values_matrix[1] = 0.5
-        self.ace_values_matrix[11] = 0.5
         self.split_matrix['yes'] = 0.5
         self.split_matrix['no'] = 0.5
 
@@ -125,30 +122,11 @@ class HumanPlayer(Player):
         if (aces_count > 1): return True
         else: return False
 
+    #This method is unused and should be modified
+    """
     def define_ace_value(self, training_flag):
 
         #This method should decide the value of every ace you've got
-
-        #Unused code
-        """
-        if self.have_more_than_1_ace():
-            #Aces are naturally 1. If I have more than 1, then I'll set one of them to 11
-            #After that, I'll check that I'm not over 21.
-            for card in self.hand:
-
-                if card.get_value() == 1:
-                    card.set_ace_value(11)
-                    break
-                    #This line is necessary to get out of the loop whenever the first ace is reached
-
-            if (self.calculate_value() > 21):
-
-                #If you are over 21, then set every Ace to 1
-                for card in self.hand:
-
-                    if card.get_value() == 11:
-                        card.set_value(1)
-        """
 
 
         if training_flag: #When I'm training, I choose randomly
@@ -191,10 +169,9 @@ class HumanPlayer(Player):
                         #Again, the break line is necessary because you can only have
                         #ONE eleven-ace per hand, or you'd be over 21
 
-    def stand(self, dealer_original_value, training_flag):
+    """
 
-        if (self.have_an_ace):
-            self.define_ace_value(training_flag)
+    def stand(self, dealer_original_value, training_flag):
 
         if training_flag:
 
@@ -206,6 +183,7 @@ class HumanPlayer(Player):
             else:
                 if self.calculate_value() <= 20:
                     self.temp_state_action.append(((self.calculate_value(), dealer_original_value), 'stand'))
+                print 'Action: Stand'
                 return True
         #when it is not training
         elif self.calculate_value() <= 20:
@@ -235,6 +213,7 @@ class HumanPlayer(Player):
         #he chooses when to stand
         """
         while not (self.stand(dealer_original_value, training_flag)):
+            print 'Action: Asks for a card'
             new_card = self.game.get_deck().give_a_card()
             self.get_card(new_card)
             print str(new_card.rank) + ' of ' + str(new_card.suit)
@@ -252,27 +231,6 @@ class HumanPlayer(Player):
         self.update_only_the_terminal_value(number)
         #self.update_every_value(number) //TODO: Implement and see how it changes the results. This means, add value to the winning node, substract value from every other
 
-        if self.have_an_ace():
-
-            #Ace values in the matrix are updated
-            ace_value = 1
-
-            for card in self.hand:
-                if (card.get_value() == 11): ace_value = 11
-
-            if result == 'win':
-                self.ace_values_matrix[ace_value] += 0.02
-                if ace_value == 11:
-                    self.ace_values_matrix[1] -= 0.04
-                elif ace_value == 1:
-                    self.ace_values_matrix[11] -= 0.04
-
-            elif result == 'lose':
-                self.ace_values_matrix[ace_value] -= 0.04
-                if ace_value == 11:
-                    self.ace_values_matrix[1] += 0.02
-                elif ace_value == 1:
-                    self.ace_values_matrix[11] += 0.02
 
 
     def update_full_path_values(self, number):
@@ -285,11 +243,9 @@ class HumanPlayer(Player):
     def update_split_matrix(self, points):
         if (points == 2):
             self.split_matrix['yes'] += 0.04
-            self.split_matrix['no'] -= 0.02
 
         elif (points == 0):
-            self.split_matrix['no'] += 0.04
-            self.split_matrix['yes'] -= 0.02
+            self.split_matrix['no'] += 0.02
 
         #If you win 1 and lose 1 split hand, the matrix stays the same
 
@@ -309,9 +265,12 @@ class Dealer(Player):
     def make_move(self, player_value):
 
         while(self.calculate_value() < player_value and player_value <= 21 and self.calculate_value() < 17):
+            print '\n Dealer Action: Asks for a card '
             new_card = self.game.get_deck().give_a_card()
             self.get_card(new_card)
             print str(new_card.rank) + ' of ' + str(new_card.suit)
+
+        print '\nDealer Action: Stand '
 
 
     def print_victories(self):
