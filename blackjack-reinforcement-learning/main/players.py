@@ -54,7 +54,7 @@ class HumanPlayer(Player):
             for y in range(0, len(self.actions)):
                 current_state = self.states[x]
                 current_action = self.actions[y]
-                self.fg_values_matrix[current_state, current_action] = 0.5
+                self.fg_values_matrix[current_state, current_action] = 0.0
 
         #Initialize the Ace possible values. It can be 1 or 11
         #The initial value is 0.5 for both Ace possibility
@@ -221,18 +221,49 @@ class HumanPlayer(Player):
 
     #the fg_values that are updated, are those that take you to directly win or lose. The previous values do not get updated
     def update_fg_values(self, result):
-        number = 0
+        alpha = 0.5  # it can be modified
+        gamma = 0.5  # it can be modified, but between 0 and 1
+        reward = 0.0
+
         if result == 'win':
-            number = 0.02
+            reward = 0.2
         elif result == 'lose':
-            number = -0.04
+            reward = -0.2
 
-        #self.update_full_path_values(number)
-        self.update_only_the_terminal_value(number)
-        #self.update_every_value(number) //TODO: Implement and see how it changes the results. This means, add value to the winning node, substract value from every other
+        terminal_s_a = self.temp_state_action[len(self.temp_state_action) - 1]
+        q_s_a = self.fg_values_matrix[self.temp_state_action[len(self.temp_state_action) - 1]]
 
+        # max Q(s', a') is 0, because is a terminal state
+        self.fg_values_matrix[terminal_s_a] = (1 - alpha) * q_s_a + alpha * (reward + gamma * 0)
 
+        # if is not a terminal state-action, the reward is 0
+        reward = 0.0
+        if (len(self.temp_state_action) - 2) >= 0:
+            for x in range((len(self.temp_state_action) - 2), -1):
+                s_a = self.temp_state_action[x]
+                s_a_prime = self.temp_state_action[x + 1]
+                q_s_a_x = self.fg_values_matrix[s_a]
 
+                # CALCULATE THE MAX Q(s',a')
+                q_stand_value_prime = self.fg_values_matrix[s_a_prime, 'stand']
+                q_continue_value_prime = self.fg_values_matrix[s_a_prime, 'continue']
+                q_values_prime = [q_stand_value_prime, q_continue_value_prime]
+
+                self.fg_values_matrix[s_a] = (1 - alpha) * q_s_a_x + alpha * [reward + gamma * max(q_values_prime)]
+            """
+            #with this code you update the complete path
+            for x in range(0, len(self.temp_state_action)):
+                self.fg_values_matrix[self.temp_state_action[x]] += number
+            """
+            # self.fg_values_matrix[self.temp_state_action[len(self.temp_state_action) - 1]] += reward
+
+            """
+            def inc_Q(s, a, alpha, inc):
+                Q[s][a] *= 1 - alpha
+                Q[s][a] += alpha * inc
+                World.set_cell_score(s, a, Q[s][a])
+            """
+        
     def update_full_path_values(self, number):
         for x in range(0, len(self.temp_state_action)):
             self.fg_values_matrix[self.temp_state_action[x]] += number
