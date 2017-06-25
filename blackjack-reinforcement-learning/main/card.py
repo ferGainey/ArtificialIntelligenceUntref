@@ -14,7 +14,7 @@ class Card:
             if rank == 'Ace':
                 self.rank = rank
                 self.suit = suit
-                self.value = 1
+                self.value = 11
 
             elif rank == '2':
                 self.rank = rank

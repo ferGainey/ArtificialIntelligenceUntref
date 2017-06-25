@@ -26,7 +26,7 @@ class TestCard(unittest.TestCase):
         self.assertEqual(self.card_9_clubs.suit, 'Clubs')
 
     def test_card_value(self):
-        self.assertEqual(self.card_ace_spades.value, 1)
+        self.assertEqual(self.card_ace_spades.value, 11)
         self.assertEqual(self.card_jack_diamonds.value, 10)
         self.assertEqual(self.card_king_hearts.value, 10)
         self.assertEqual(self.card_queen_clubs.value, 10)

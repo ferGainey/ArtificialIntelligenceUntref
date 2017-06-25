@@ -67,14 +67,14 @@ class BlackjackGame:
 
         print '\n \n NEW ROUND:'
 
-        self.dealer.get_card(self.deck_of_cards.give_a_card())
         print '\n Dealer Hand:'
-        print str(self.dealer.hand[0].rank) + ' of ' + str(self.dealer.hand[0].suit)
-        self.player.get_card(self.deck_of_cards.give_a_card())
-        self.player.get_card(self.deck_of_cards.give_a_card())
+        self.dealer.get_card(self.deck_of_cards.give_a_card())
+        self.dealer.print_hand()
+
         print '\n Human Hand:'
-        print str(self.player.hand[0].rank) + ' of ' + str(self.player.hand[0].suit)
-        print str(self.player.hand[1].rank) + ' of ' + str(self.player.hand[1].suit) + '\n'
+        self.player.get_card(self.deck_of_cards.give_a_card())
+        self.player.get_card(self.deck_of_cards.give_a_card())
+        self.player.print_hand()
 
         if (self.player.calculate_value() == 21):
 

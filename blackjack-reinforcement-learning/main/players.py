@@ -1,23 +1,28 @@
 from random import randint
 
+from hand import Hand
+
+
 class Player:
 
     game = None
-    hand = []
+    hand = None
     victories = 0
 
     def get_card(self, card):
-        self.hand.append(card)
+        self.hand.add_card(card)
 
     def clean_hand(self):
-        self.hand = []
+        self.hand.clean()
 
     def calculate_value(self):
-        value = 0
-        for card in self.hand:
-            value += card.get_value()
+        return self.hand.calculate_value()
 
-        return value
+    def calculate_hardness(self):
+        return self.hand.get_hardness()
+
+    def calculate_status(self):
+        return self.hand.calculate_status()
 
     def compute_victory(self):
         self.victories += 1
@@ -34,6 +39,7 @@ class HumanPlayer(Player):
 
     def __init__(self, game, coins):
         self.game = game
+        self.hand = Hand()
         self.coins = coins
         #the actions are continue or stand. Split and bet more coins will be developed later
         self.actions = ['continue', 'stand']
@@ -76,22 +82,8 @@ class HumanPlayer(Player):
     def print_victories(self):
         print 'Player won ' + str(self.victories) + ' times'
 
-    def ask_if_continues(self):
-        #To modify
-
-        random_number = randint(0, 9)
-        if random_number < 0.01: #It will likely continue forever!
-            return False
-        else:
-            return True
-        #Returns true if the player keeps playing
-        #Returns false to stop playing
-        #pass
-
     def has_two_equal_valued_cards(self):
-
-        if(self.hand[0].get_value() == self.hand[1].get_value()): return True
-        else: return False
+        return self.hand.has_two_equal_valued_cards()
 
     def wants_to_split(self, training_flag):
         #Returns true if the player chooses to split
@@ -108,69 +100,13 @@ class HumanPlayer(Player):
             else: return False
 
     def have_an_ace(self):
-        for card in self.hand:
-            if (card.rank == 'Ace'):
-                return True
-
-        return False
+        return self.hand.have_an_ace()
 
     def have_more_than_1_ace(self):
-        aces_count = 0
-        for card in self.hand:
-            if (card.rank == 'Ace'): aces_count += 1
-
-        if (aces_count > 1): return True
-        else: return False
-
-    #This method is unused and should be modified
-    """
-    def define_ace_value(self, training_flag):
-
-        #This method should decide the value of every ace you've got
+        return self.hand.have_more_than_1_ace()
 
 
-        if training_flag: #When I'm training, I choose randomly
-
-            number = randint(0, 9)
-
-            if (number > 5):
-                for card in self.hand:
-
-                    if card.get_value() == 1:
-                        card.set_value(11)
-                        break #Only the first one is turned to 11, if you have more than one
-
-            else:
-                for card in self.hand:
-
-                    if card.get_value() == 11:
-                        card.set_value(1)
-
-
-        else: #If I'm not training, I just pick the best option from the matrix
-
-            one_value = self.ace_values_matrix[1]
-            eleven_value = self.ace_values_matrix[11]
-
-            if one_value >= eleven_value:
-
-                for card in self.hand:
-
-                    if card.get_value() == 11:
-                        card.set_value(1)
-
-            else:
-
-                for card in self.hand:
-
-                    if card.get_value() == 1:
-                        card.set_value(11)
-                        break
-                        #Again, the break line is necessary because you can only have
-                        #ONE eleven-ace per hand, or you'd be over 21
-
-    """
-
+    #Fix
     def stand(self, dealer_original_value, training_flag):
 
         if training_flag:
@@ -203,15 +139,7 @@ class HumanPlayer(Player):
 
 
     def make_move(self, dealer_original_value, training_flag):
-        """
-        #If the dealer is winning, then the player asks for a card. Obviously!
-        while (self.calculate_value() < dealer_original_value):
 
-            self.get_card(self.game.get_deck().give_a_card())
-
-        #Once the player's hand value is higher than the dealer's, then
-        #he chooses when to stand
-        """
         while not (self.stand(dealer_original_value, training_flag)):
             print 'Action: Asks for a card'
             new_card = self.game.get_deck().give_a_card()
@@ -250,26 +178,8 @@ class HumanPlayer(Player):
                 q_values_prime = [q_stand_value_prime, q_continue_value_prime]
 
                 self.fg_values_matrix[s_a] = (1 - alpha) * q_s_a_x + alpha * [reward + gamma * max(q_values_prime)]
-            """
-            #with this code you update the complete path
-            for x in range(0, len(self.temp_state_action)):
-                self.fg_values_matrix[self.temp_state_action[x]] += number
-            """
-            # self.fg_values_matrix[self.temp_state_action[len(self.temp_state_action) - 1]] += reward
 
-            """
-            def inc_Q(s, a, alpha, inc):
-                Q[s][a] *= 1 - alpha
-                Q[s][a] += alpha * inc
-                World.set_cell_score(s, a, Q[s][a])
-            """
-        
-    def update_full_path_values(self, number):
-        for x in range(0, len(self.temp_state_action)):
-            self.fg_values_matrix[self.temp_state_action[x]] += number
 
-    def update_only_the_terminal_value(self, number):
-        self.fg_values_matrix[self.temp_state_action[len(self.temp_state_action) - 1]] += number
 
     def update_split_matrix(self, points):
         if (points == 2):
@@ -284,6 +194,10 @@ class HumanPlayer(Player):
     def restart_temp_state_action(self):
         self.temp_state_action = []
 
+    def print_hand(self):
+        print str(self.hand.cards[0].rank) + ' of ' + str(self.hand.cards[0].suit)
+        print str(self.hand.cards[1].rank) + ' of ' + str(self.hand.cards[1].suit) + '\n'
+
 
 
 
@@ -292,6 +206,8 @@ class Dealer(Player):
 
     def __init__(self, game):
         self.game = game
+        self.hand = Hand()
+
 
     def make_move(self, player_value):
 
@@ -306,3 +222,8 @@ class Dealer(Player):
 
     def print_victories(self):
         print 'Dealer won ' + str(self.victories) + ' times'
+
+
+    def print_hand(self):
+        print str(self.hand.cards[0]) + ' of ' + str(self.hand.cards[0].suit)
+
