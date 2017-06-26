@@ -134,7 +134,7 @@ class HumanPlayer(Player):
                         self.temp_state_action.append(((self.hand.calculate_status(), dealer_original_value), 'stand'))
                 return True
             #continue
-            elif 1 <= random_number < 5:
+            elif 2 <= random_number < 5:
                 if (self.calculate_value() <= 20):
                     self.temp_state_action.append(((self.hand.calculate_status(), dealer_original_value),'continue'))
                 return False
@@ -149,9 +149,8 @@ class HumanPlayer(Player):
 
             # compare the values, if stand_value is higher than continue_value, the next action will be stand
             stand_value = self.fg_values_matrix[(self.calculate_value(), dealer_original_value), 'stand']
-            #print stand_value
             continue_value = self.fg_values_matrix[(self.calculate_value(), dealer_original_value), 'continue']
-            #print continue_value
+            double_bet_value = self.fg_values_matrix[(self.calculate_value(), dealer_original_value), 'double bet']
             if stand_value > continue_value:
                 return True
             else:
@@ -198,7 +197,8 @@ class HumanPlayer(Player):
                 # CALCULATE THE MAX Q(s',a')
                 q_stand_value_prime = self.fg_values_matrix[s_a_prime, 'stand']
                 q_continue_value_prime = self.fg_values_matrix[s_a_prime, 'continue']
-                q_values_prime = [q_stand_value_prime, q_continue_value_prime]
+                q_double_bet_value_prime = self.fg_values_matrix[s_a_prime, 'double bet']
+                q_values_prime = [q_stand_value_prime, q_continue_value_prime, q_double_bet_value_prime]
 
                 self.fg_values_matrix[s_a] = (1 - alpha) * q_s_a_x + alpha * [reward + gamma * max(q_values_prime)]
 

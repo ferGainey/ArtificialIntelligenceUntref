@@ -4,7 +4,7 @@ class Hand:
     cards = []
 
     def __init__(self):
-        hardness = 'h' #This can be 'h' = hard or 's' = soft. Default initialized as hard
+        self.hardness = 'h' #This can be 'h' = hard or 's' = soft. Default initialized as hard
 
 
     def add_card(self, card):
