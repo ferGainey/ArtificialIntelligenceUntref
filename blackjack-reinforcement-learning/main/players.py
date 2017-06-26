@@ -10,7 +10,10 @@ class Player:
     victories = 0
 
     def get_card(self, card):
+        if (self.hand.have_an_ace() and card.rank == 'Ace'):
+            card.set_value(1)
         self.hand.add_card(card)
+
 
     def clean_hand(self):
         self.hand.clean()
@@ -42,19 +45,22 @@ class HumanPlayer(Player):
         self.hand = Hand()
         self.coins = coins
         #the actions are continue or stand. Split and bet more coins will be developed later
-        self.actions = ['continue', 'stand']
+        self.actions = ['continue', 'stand', 'double bet']
         """
         The human player can take decisions only between 2 and 20. The '2' case is the lowest initial hand that the human
         can receive (two Aces). And the '20' case is the highest value that human can obtain without winning or loosing
         that round.
         """
         for i in range(2,21):
-            #The lowest value card that the dealer can receive is 1 (an Ace) and the highest is 10 (King, Queen, Joker, Ten)
-            #In this initial implementation the Ace will have one unique value: 1. Later it can be 1 or 11.
-            for j in range(1,11):
-                self.states.append((i,j))
+            #The lowest value card that the dealer can receive is 1 (an Ace) and the highest is 11 (Soft Ace)
+            #In this initial implementation the Ace will have one unique value: 1. Later it can be 1 or 11. (in progress)
+            for j in range(1,12):
+                player_status = str(i) + 's'
+                self.states.append((player_status,j))
+                player_status = str(i) + 'h'
+                self.states.append((player_status,j))
 
-        #Initialize fg_values_matrix with 0,5 probability each one. I use a dictionary to do this.
+        #Initialize fg_values_matrix with 0.0 probability each one. I use a dictionary to do this.
         # The key is: (the state,action). And the value will be the fg_value
         for x in range(0, len(self.states)):
             for y in range(0, len(self.actions)):
@@ -74,6 +80,9 @@ class HumanPlayer(Player):
         #Returns the bet
         self.coins -= 1
         return 1 #The automated player only bets 1 coin
+
+    def double_bet(self):
+        self.game.current_player_bet *= 2
 
     def get_prize(self, prize):
         #This gives the player the prize if won a hand
@@ -112,13 +121,27 @@ class HumanPlayer(Player):
         if training_flag:
 
             random_number = randint(0, 9)
-            if random_number < 5:
+            #double bet
+            if random_number < 1:
                 if (self.calculate_value() <= 20):
-                    self.temp_state_action.append(((self.calculate_value(), dealer_original_value),'continue'))
+                    self.temp_state_action.append(((self.hand.calculate_status(), dealer_original_value),'double bet'))
+                    self.double_bet()
+                    print 'Action: Asks for a card'
+                    new_card = self.game.get_deck().give_a_card()
+                    self.get_card(new_card)
+                    print str(new_card.rank) + ' of ' + str(new_card.suit)
+                    if (self.calculate_value() <= 20):
+                        self.temp_state_action.append(((self.hand.calculate_status(), dealer_original_value), 'stand'))
+                return True
+            #continue
+            elif 1 <= random_number < 5:
+                if (self.calculate_value() <= 20):
+                    self.temp_state_action.append(((self.hand.calculate_status(), dealer_original_value),'continue'))
                 return False
+            #stand
             else:
                 if self.calculate_value() <= 20:
-                    self.temp_state_action.append(((self.calculate_value(), dealer_original_value), 'stand'))
+                    self.temp_state_action.append(((self.hand.calculate_status(), dealer_original_value), 'stand'))
                 print 'Action: Stand'
                 return True
         #when it is not training
@@ -225,5 +248,5 @@ class Dealer(Player):
 
 
     def print_hand(self):
-        print str(self.hand.cards[0]) + ' of ' + str(self.hand.cards[0].suit)
+        print str(self.hand.cards[0].rank) + ' of ' + str(self.hand.cards[0].suit)
 

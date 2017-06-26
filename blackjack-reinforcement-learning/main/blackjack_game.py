@@ -10,6 +10,7 @@ class BlackjackGame:
     dealer = None
     player = None
     active = None #This indicates if the game is active or not
+    current_player_bet = None
 
 
     def __init__(self):
@@ -61,7 +62,7 @@ class BlackjackGame:
         return self.deck_of_cards
 
     def begin_hand(self, training_flag):
-        bet = self.player.bet()
+        self.current_player_bet = self.player.bet()
 
         self.clean_hands() #Makes sure both the dealer and the player have empty hands
 
@@ -79,13 +80,13 @@ class BlackjackGame:
         if (self.player.calculate_value() == 21):
 
             print 'BlackJack! You win'
-            self.player.get_prize(3*bet)
+            self.player.get_prize(3*self.current_player_bet)
             return 'win'
 
         elif (self.player.calculate_value() == self.dealer.calculate_value()):
 
             print "It's a tie! Your bet is refunded"
-            self.player.get_prize(bet)
+            self.player.get_prize(self.current_player_bet)
             return 'tie'
 
         else:
@@ -116,7 +117,7 @@ class BlackjackGame:
                 #print player_value
                 #print self.dealer.calculate_value()
                 result = ''
-                result = self.print_hand_results(bet, player_value, result, training_flag)
+                result = self.print_hand_results(self.current_player_bet, player_value, result, training_flag)
 
                 self.player.restart_temp_state_action()
                 return result
