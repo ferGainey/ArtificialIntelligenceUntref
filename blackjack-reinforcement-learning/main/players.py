@@ -148,9 +148,9 @@ class HumanPlayer(Player):
         elif self.calculate_value() <= 20:
 
             # compare the values, if stand_value is higher than continue_value, the next action will be stand
-            stand_value = self.fg_values_matrix[(self.calculate_value(), dealer_original_value), 'stand']
-            continue_value = self.fg_values_matrix[(self.calculate_value(), dealer_original_value), 'continue']
-            double_bet_value = self.fg_values_matrix[(self.calculate_value(), dealer_original_value), 'double bet']
+            stand_value = self.fg_values_matrix[(self.hand.calculate_status(), dealer_original_value), 'stand']
+            continue_value = self.fg_values_matrix[(self.hand.calculate_status(), dealer_original_value), 'continue']
+            double_bet_value = self.fg_values_matrix[(self.hand.calculate_status(), dealer_original_value), 'double bet']
             if stand_value > continue_value:
                 return True
             else:

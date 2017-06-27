@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 import unittest
-from main.blackjack_game import BlackjackGame
+from blackjack_game import BlackjackGame
 
 
 class TestBlackjackGame(unittest.TestCase):
