@@ -23,9 +23,9 @@ class BlackjackGame:
 
         self.active = True  # As the game begins, we set this flag the True value
         training_flag = True #It's time to train!
-        training_repetitions = 2000 #this number can be changed
+        training_repetitions = 10000 #this number can be changed
         for x in range(0, training_repetitions):
-            print 'Training hand n' + str(x) + '\n'
+            print 'Training hand #' + str(x) + '\n'
             self.begin_hand(training_flag)
             print 'Q-Matrix: ' + str(self.player.fg_values_matrix) + '\n'
             print 'Split-Matrix: ' + str(self.player.split_matrix) + '\n'
@@ -35,8 +35,8 @@ class BlackjackGame:
         print 'END OF TRAINING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
 
         #On the while condition we could ask if the player wants to keep playing,
-        #But here we prefer the automated player to play a fixed set of hands, let's say, 100
-        real_hands_to_play = 100
+        #But here we prefer the automated player to play a fixed set of hands, let's say, 250
+        real_hands_to_play = 250
         i = 0
         while (self.not_ended() and i < real_hands_to_play):
 
@@ -44,7 +44,7 @@ class BlackjackGame:
             print 'Real hand n' + str(i) + '\n'
             self.begin_hand(training_flag)
             self.deck_of_cards.restart_deck_of_cards()
-            print 'Q-Matrix: ' + str(self.player.fg_values_matrix) + '\n'
+            #print 'Q-Matrix: ' + str(self.player.fg_values_matrix) + '\n'
             print 'Split-Matrix: ' + str(self.player.split_matrix) + '\n'
 
         self.player.print_victories()

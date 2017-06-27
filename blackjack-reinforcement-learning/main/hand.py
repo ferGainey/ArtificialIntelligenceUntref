@@ -16,6 +16,7 @@ class Hand:
 
     def clean(self):
         self.cards = []
+        self.hardness = 'h'
 
     def calculate_value(self):
         value = 0
