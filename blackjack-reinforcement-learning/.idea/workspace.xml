@@ -27,21 +27,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="players.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="players.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main/players.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="976">
-              <caret line="200" column="103" lean-forward="false" selection-start-line="200" selection-start-column="103" selection-end-line="200" selection-end-column="103" />
+            <state relative-caret-position="1815">
+              <caret line="196" column="52" lean-forward="false" selection-start-line="196" selection-start-column="52" selection-end-line="196" selection-end-column="52" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="blackjack_game.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="blackjack_game.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main/blackjack_game.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1637">
-              <caret line="122" column="29" lean-forward="true" selection-start-line="122" selection-start-column="29" selection-end-line="122" selection-end-column="29" />
+            <state relative-caret-position="-458">
+              <caret line="25" column="35" lean-forward="false" selection-start-line="25" selection-start-column="35" selection-end-line="25" selection-end-column="35" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -97,6 +97,9 @@
       <find>bet</find>
       <find>double be</find>
       <find>double bet'): -</find>
+      <find>DAA</find>
+      <find>DA</find>
+      <find>da</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -108,9 +111,9 @@
         <option value="$PROJECT_DIR$/test/players_test.py" />
         <option value="$PROJECT_DIR$/test/deck_of_cards_test.py" />
         <option value="$PROJECT_DIR$/test/card_test.py" />
-        <option value="$PROJECT_DIR$/main/players.py" />
         <option value="$PROJECT_DIR$/test/blackjack_game_test.py" />
         <option value="$PROJECT_DIR$/main/hand.py" />
+        <option value="$PROJECT_DIR$/main/players.py" />
         <option value="$PROJECT_DIR$/main/blackjack_game.py" />
       </list>
     </option>
@@ -451,34 +454,34 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.26 at 14h 15m 17s.xml">
+    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.27 at 01h 09m 54s.xml">
       <configuration name="Unittests in blackjack_game_test" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.26 at 14h 22m 22s.xml">
+    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.27 at 01h 10m 16s.xml">
       <configuration name="Unittests in blackjack_game_test" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.26 at 14h 22m 29s.xml">
+    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.27 at 01h 11m 39s.xml">
       <configuration name="Unittests in blackjack_game_test" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.26 at 14h 22m 33s.xml">
+    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.27 at 01h 12m 44s.xml">
       <configuration name="Unittests in blackjack_game_test" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.26 at 14h 23m 49s.xml">
+    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.27 at 01h 13m 14s.xml">
       <configuration name="Unittests in blackjack_game_test" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.26 at 14h 26m 26s.xml">
+    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.27 at 01h 13m 31s.xml">
       <configuration name="Unittests in blackjack_game_test" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.27 at 00h 01m 37s.xml">
+    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.27 at 01h 19m 16s.xml">
       <configuration name="Unittests in blackjack_game_test" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.27 at 00h 02m 51s.xml">
+    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.27 at 01h 20m 44s.xml">
       <configuration name="Unittests in blackjack_game_test" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.27 at 00h 04m 30s.xml">
+    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.27 at 01h 22m 47s.xml">
       <configuration name="Unittests in blackjack_game_test" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.27 at 00h 28m 23s.xml">
+    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.27 at 01h 27m 46s.xml">
       <configuration name="Unittests in blackjack_game_test" configurationId="tests" />
     </history-entry>
   </component>
@@ -491,7 +494,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14605068" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.533532" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -730,21 +733,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main/blackjack_game.py">
+    <entry file="file://$PROJECT_DIR$/main/players.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1637">
-          <caret line="122" column="29" lean-forward="true" selection-start-line="122" selection-start-column="29" selection-end-line="122" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="1815">
+          <caret line="196" column="52" lean-forward="false" selection-start-line="196" selection-start-column="52" selection-end-line="196" selection-end-column="52" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main/players.py">
+    <entry file="file://$PROJECT_DIR$/main/blackjack_game.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="976">
-          <caret line="200" column="103" lean-forward="false" selection-start-line="200" selection-start-column="103" selection-end-line="200" selection-end-column="103" />
-          <folding />
+        <state relative-caret-position="-458">
+          <caret line="25" column="35" lean-forward="false" selection-start-line="25" selection-start-column="35" selection-end-line="25" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

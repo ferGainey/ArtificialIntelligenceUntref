@@ -171,6 +171,8 @@ class HumanPlayer(Player):
 
     #the fg_values that are updated, are those that take you to directly win or lose. The previous values do not get updated
     def update_fg_values(self, result):
+        print self.temp_state_action
+        print len(self.temp_state_action)
         alpha = 0.5  # it can be modified
         gamma = 0.5  # it can be modified, but between 0 and 1
         reward = 0.0
@@ -189,19 +191,18 @@ class HumanPlayer(Player):
         # if is not a terminal state-action, the reward is 0
         reward = 0.0
         if (len(self.temp_state_action) - 2) >= 0:
-            for x in range((len(self.temp_state_action) - 2), -1):
+            for x in range((len(self.temp_state_action) - 2), -1, -1):
                 s_a = self.temp_state_action[x]
                 s_a_prime = self.temp_state_action[x + 1]
                 q_s_a_x = self.fg_values_matrix[s_a]
 
                 # CALCULATE THE MAX Q(s',a')
-                q_stand_value_prime = self.fg_values_matrix[s_a_prime, 'stand']
-                q_continue_value_prime = self.fg_values_matrix[s_a_prime, 'continue']
-                q_double_bet_value_prime = self.fg_values_matrix[s_a_prime, 'double bet']
+                q_stand_value_prime = self.fg_values_matrix[s_a_prime]
+                q_continue_value_prime = self.fg_values_matrix[s_a_prime]
+                q_double_bet_value_prime = self.fg_values_matrix[s_a_prime]
                 q_values_prime = [q_stand_value_prime, q_continue_value_prime, q_double_bet_value_prime]
 
-                self.fg_values_matrix[s_a] = (1 - alpha) * q_s_a_x + alpha * [reward + gamma * max(q_values_prime)]
-
+                self.fg_values_matrix[s_a] = (1 - alpha) * q_s_a_x + alpha * (reward + gamma * max(q_values_prime))
 
 
     def update_split_matrix(self, points):

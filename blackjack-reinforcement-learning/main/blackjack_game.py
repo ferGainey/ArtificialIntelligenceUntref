@@ -23,11 +23,11 @@ class BlackjackGame:
 
         self.active = True  # As the game begins, we set this flag the True value
         training_flag = True #It's time to train!
-        training_repetitions = 10000 #this number can be changed
+        training_repetitions = 2000 #this number can be changed
         for x in range(0, training_repetitions):
             print 'Training hand #' + str(x) + '\n'
             self.begin_hand(training_flag)
-            print 'Q-Matrix: ' + str(self.player.fg_values_matrix) + '\n'
+            #print 'Q-Matrix: ' + str(self.player.fg_values_matrix) + '\n'
             print 'Split-Matrix: ' + str(self.player.split_matrix) + '\n'
             self.deck_of_cards.restart_deck_of_cards()
 
@@ -119,7 +119,6 @@ class BlackjackGame:
                 result = ''
                 result = self.print_hand_results(self.current_player_bet, player_value, result, training_flag)
 
-                self.player.restart_temp_state_action()
                 return result
 
     def print_hand_results(self, bet, player_value, result, training_flag):
@@ -131,6 +130,7 @@ class BlackjackGame:
             else:
                 self.dealer.compute_victory()
             result = 'lose'
+            self.player.restart_temp_state_action()
         elif self.dealer.calculate_value() > 21:
             print '\nHuman Player WINS! (Dealer got over 21)'
             print '-------------------------------------------------'
@@ -140,6 +140,7 @@ class BlackjackGame:
             else:
                 self.player.compute_victory()
             result = 'win'
+            self.player.restart_temp_state_action()
         elif (21 - player_value) < (21 - self.dealer.calculate_value()):
             print "\nHuman Player WINS! (Has a better score)"
             print '-------------------------------------------------'
@@ -149,6 +150,7 @@ class BlackjackGame:
             else:
                 self.player.compute_victory()
             result = 'win'
+            self.player.restart_temp_state_action()
         elif (21 - player_value) > (21 - self.dealer.calculate_value()):
             print "\nThe Dealer WINS! (Has a better score)"
             print '-------------------------------------------------'
@@ -157,6 +159,7 @@ class BlackjackGame:
             else:
                 self.dealer.compute_victory()
             result = 'lose'
+            self.player.restart_temp_state_action()
         return result
 
     def print_split_game_results(self, result):
