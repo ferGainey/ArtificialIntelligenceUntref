@@ -14,6 +14,13 @@ class Hand:
 
         self.cards.append(card)
 
+        #If after adding the card, you are over 21, then
+        #if you have an ace valued 11, it's set to 1
+        #so you can keep playing
+        if (self.calculate_value() > 21 and self.hardness == 's'):
+            self.set_an_ace_1()
+
+
     def clean(self):
         self.cards = []
         self.hardness = 'h'
@@ -61,7 +68,7 @@ class Hand:
 
     def set_an_ace_1(self):
 
-        #This will turn to 1 the first found ace
+        #This will turn to 1 the first 11-valued ace found
         for card in self.cards:
 
             if (card.get_value == 11):

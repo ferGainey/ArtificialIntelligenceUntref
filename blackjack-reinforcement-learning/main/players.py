@@ -42,7 +42,7 @@ class HumanPlayer(Player):
         self.hand = Hand()
         self.coins = coins
         #the actions are continue or stand. Split and bet more coins will be developed later
-        self.actions = ['continue', 'stand', 'double bet']
+        self.actions = ['continue', 'stand', 'double bet', 'split']
         """
         The human player can take decisions only between 2 and 20. The '2' case is the lowest initial hand that the human
         can receive (two Aces). And the '20' case is the highest value that human can obtain without winning or loosing
@@ -123,23 +123,28 @@ class HumanPlayer(Player):
 
             random_number = randint(0, 9)
             # double bet, only at the first decision
-            if random_number < 3 and len(self.hand.cards) == 2:
+            if random_number < 5 and len(self.hand.cards) == 2:
                 if (self.calculate_value() <= 20):
                     self.temp_state_action.append(((self.hand.calculate_status(), dealer_original_value), 'double bet'))
                     self.double_bet()
                     return 'double bet'
+
+            elif random_number >= 5 and self.can_split():
+                if (self.calculate_value() <= 20):
+                    self.temp_state_action.append(((self.hand.calculate_status(), dealer_original_value), 'split'))
+                    return 'split'
 
             else:
                 # continue
                 if 0 <= random_number < 5:
                     if (self.calculate_value() <= 20):
                         self.temp_state_action.append(((self.hand.calculate_status(), dealer_original_value), 'continue'))
-                    return 'continue'
+                        return 'continue'
                 # stand
                 else:
                     if self.calculate_value() <= 20:
                         self.temp_state_action.append(((self.hand.calculate_status(), dealer_original_value), 'stand'))
-                    return 'stand'
+                        return 'stand'
 
             # when it is not training
         elif self.calculate_value() <= 20:
@@ -154,11 +159,20 @@ class HumanPlayer(Player):
             double_bet_value = self.fg_values_matrix[(self.hand.calculate_status(), dealer_original_value), 'double bet']
             values[double_bet_value] = 'double bet'
 
+            if(self.can_split()):
+
+                split_value = self.fg_values_matrix[(self.hand.calculate_status(), dealer_original_value), 'split']
+                values[split_value] = 'split'
+
             max = self.calculate_maximum_from_vector(values)
 
             return values[max]
 
+
+        #Typically, this last return line will only be reached
+        #if you are over 20, so you insta-win or insta-lose
         return 'stand'
+
         # Returns true if the player chooses to stand
         # Returns false if the player chooses to get another card
 
@@ -183,8 +197,8 @@ class HumanPlayer(Player):
 
             elif (decision == 'split'):
 
-                #TODO: Implement
-                pass
+                #You go back to the BlackjackGame and the split-hand begins
+                return 'split'
 
             elif (decision == 'double bet'):
 
@@ -199,6 +213,7 @@ class HumanPlayer(Player):
 
                 #This means, if you double-betted, then you MUST ask stand after getting one more card!
                 decision = 'stand'
+        return ''
 
     #the fg_values that are updated, are those that take you to directly win or lose. The previous values do not get updated
     def update_fg_values(self, result):
@@ -248,6 +263,14 @@ class HumanPlayer(Player):
 
     def restart_temp_state_action(self):
         self.temp_state_action = []
+
+    def can_split(self):
+
+        #You can only split if you have two and only two cards valued the same
+        if (self.has_two_equal_valued_cards() and len(self.hand.cards) == 2):
+            return True
+
+        else: return False
 
     def print_hand(self):
         print str(self.hand.cards[0].rank) + ' of ' + str(self.hand.cards[0].suit)

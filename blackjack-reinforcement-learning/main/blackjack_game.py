@@ -81,6 +81,7 @@ class BlackjackGame:
 
             print 'BlackJack! You win'
             self.player.get_prize(3*self.current_player_bet)
+            self.player.compute_victory()
             return 'win'
 
         elif (self.player.calculate_value() == self.dealer.calculate_value()):
@@ -91,24 +92,23 @@ class BlackjackGame:
 
         else:
 
-            split_flag = False
-            if (self.player.has_two_equal_valued_cards()):
+            dealer_original_value = self.dealer.calculate_value()
 
-                if (self.player.wants_to_split(training_flag)):
+            move = self.player.make_move(dealer_original_value, training_flag)
 
-                    split_flag = True
-                    result = self.split_hand(training_flag) #Code the split hand
-                    self.print_split_game_results(result)
+            if (move == 'split'):
 
-                    self.player.restart_temp_state_action()
-                    return result
+                points = self.split_hand(training_flag)
 
+                if (points == 2): #The split was positive
+                    self.player.update_fg_values('win')
+                elif (points == 0): #The split was negative
+                    self.player.update_fg_values('lose')
 
-            if not split_flag:
+                self.player.restart_temp_state_action()
+                return ''
 
-                dealer_original_value = self.dealer.calculate_value()
-
-                self.player.make_move(dealer_original_value, training_flag)
+            else:
 
                 player_value = self.player.calculate_value()
 
@@ -163,18 +163,22 @@ class BlackjackGame:
             self.player.restart_temp_state_action()
         return result
 
-    def print_split_game_results(self, result):
-        if (result == 'win'):
-            print '\n----Human Player WINS the Split Game (Two victories)'
-            print '-------------------------------------------------'
+    def compute_and_print_split_game_results(self, results):
 
-        elif (result == 'tie'):
-            print '\n----The Split Game is a TIE (One victory)'
-            print '-------------------------------------------------'
+        for result in results:
+            if (result == 'win'):
+                print '\n----Human Player WINS a Split Game'
+                print '-------------------------------------------------'
+                self.player.compute_victory()
 
-        elif (result == 'lose'):
-            print '\n----Dealer WINS the Split Game (Zero victories)'
-            print '-------------------------------------------------'
+            elif (result == 'tie'):
+                print '\n----The Split Game is a TIE'
+                print '-------------------------------------------------'
+
+            elif (result == 'lose'):
+                print '\n----Dealer WINS a Split Game'
+                print '-------------------------------------------------'
+                self.dealer.compute_victory()
 
     def split_hand(self, training_flag):
         #If the player chooses to split, then two 'sub-hands' are played
@@ -192,14 +196,13 @@ class BlackjackGame:
 
         if (result2 == 'win'): points +=1
 
-        if (training_flag): self.player.update_split_matrix(points)
+        results = []
+        results.append(result1)
+        results.append(result2)
 
-        #This works like this: two wins on a split game are computed as ONE WIN.
-        #One win in a split game is computed as a TIE
-        #Zero wins in a split game are computed as a LOSE
-        if (points == 2): return 'win'
-        if (points == 1): return 'tie'
-        if (points == 0): return 'lose'
+        self.compute_and_print_split_game_results(results)
+
+        return points
 
 
 
