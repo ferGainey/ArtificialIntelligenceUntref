@@ -28,7 +28,7 @@ class BlackjackGame:
             print 'Training hand #' + str(x) + '\n'
             self.begin_hand(training_flag)
             #print 'Q-Matrix: ' + str(self.player.fg_values_matrix) + '\n'
-            print 'Split-Matrix: ' + str(self.player.split_matrix) + '\n'
+            #print 'Split-Matrix: ' + str(self.player.split_matrix) + '\n'
             self.deck_of_cards.restart_deck_of_cards()
 
         training_flag = False #I'm tired of training, I want to play seriously!!
@@ -45,7 +45,7 @@ class BlackjackGame:
             self.begin_hand(training_flag)
             self.deck_of_cards.restart_deck_of_cards()
             #print 'Q-Matrix: ' + str(self.player.fg_values_matrix) + '\n'
-            print 'Split-Matrix: ' + str(self.player.split_matrix) + '\n'
+            #print 'Split-Matrix: ' + str(self.player.split_matrix) + '\n'
 
         self.player.print_victories()
         self.dealer.print_victories()
@@ -117,11 +117,12 @@ class BlackjackGame:
                 #print player_value
                 #print self.dealer.calculate_value()
                 result = ''
-                result = self.print_hand_results(self.current_player_bet, player_value, result, training_flag)
+                result = self.compute_and_print_hand_results(self.current_player_bet, player_value, result, training_flag)
 
                 return result
 
-    def print_hand_results(self, bet, player_value, result, training_flag):
+    #This should be refactored
+    def compute_and_print_hand_results(self, bet, player_value, result, training_flag):
         if player_value > 21:
             print ' \nThe Dealer WINS! (Human got over 21)'
             print '-------------------------------------------------'

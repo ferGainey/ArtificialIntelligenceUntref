@@ -18,9 +18,6 @@ class Player:
     def clean_hand(self):
         self.hand.clean()
 
-    def calculate_value(self):
-        return self.hand.calculate_value()
-
     def calculate_hardness(self):
         return self.hand.get_hardness()
 
@@ -84,6 +81,9 @@ class HumanPlayer(Player):
     def double_bet(self):
         self.game.current_player_bet *= 2
 
+    def calculate_value(self):
+        return self.hand.calculate_value()
+
     def get_prize(self, prize):
         #This gives the player the prize if won a hand
         self.coins += prize
@@ -115,59 +115,90 @@ class HumanPlayer(Player):
         return self.hand.have_more_than_1_ace()
 
 
-    #Fix
-    def stand(self, dealer_original_value, training_flag):
+    #Obviously, this method MUST be refactored.
+    def take_decision(self, dealer_original_value, training_flag):
 
+        #If I'm training, my decisions are random
         if training_flag:
 
             random_number = randint(0, 9)
-            #double bet
-            if random_number < 1:
+            # double bet, only at the first decision
+            if random_number < 3 and len(self.hand.cards) == 2:
                 if (self.calculate_value() <= 20):
-                    self.temp_state_action.append(((self.hand.calculate_status(), dealer_original_value),'double bet'))
+                    self.temp_state_action.append(((self.hand.calculate_status(), dealer_original_value), 'double bet'))
                     self.double_bet()
-                    print 'Action: Asks for a card'
-                    new_card = self.game.get_deck().give_a_card()
-                    self.get_card(new_card)
-                    print str(new_card.rank) + ' of ' + str(new_card.suit)
-                    if (self.calculate_value() <= 20):
-                        self.temp_state_action.append(((self.hand.calculate_status(), dealer_original_value), 'stand'))
-                return True
-            #continue
-            elif 2 <= random_number < 5:
-                if (self.calculate_value() <= 20):
-                    self.temp_state_action.append(((self.hand.calculate_status(), dealer_original_value),'continue'))
-                return False
-            #stand
+                    return 'double bet'
+
             else:
-                if self.calculate_value() <= 20:
-                    self.temp_state_action.append(((self.hand.calculate_status(), dealer_original_value), 'stand'))
-                print 'Action: Stand'
-                return True
-        #when it is not training
+                # continue
+                if 0 <= random_number < 5:
+                    if (self.calculate_value() <= 20):
+                        self.temp_state_action.append(((self.hand.calculate_status(), dealer_original_value), 'continue'))
+                    return 'continue'
+                # stand
+                else:
+                    if self.calculate_value() <= 20:
+                        self.temp_state_action.append(((self.hand.calculate_status(), dealer_original_value), 'stand'))
+                    return 'stand'
+
+            # when it is not training
         elif self.calculate_value() <= 20:
 
             # compare the values, if stand_value is higher than continue_value, the next action will be stand
-            stand_value = self.fg_values_matrix[(self.hand.calculate_status(), dealer_original_value), 'stand']
-            continue_value = self.fg_values_matrix[(self.hand.calculate_status(), dealer_original_value), 'continue']
-            double_bet_value = self.fg_values_matrix[(self.hand.calculate_status(), dealer_original_value), 'double bet']
-            if stand_value > continue_value:
-                return True
-            else:
-                return False
-        return True
-        #Returns true if the player chooses to stand
-        #Returns false if the player chooses to get another card
+            values = {}
 
+            stand_value = self.fg_values_matrix[(self.hand.calculate_status(), dealer_original_value), 'stand']
+            values[stand_value] = 'stand'
+            continue_value = self.fg_values_matrix[(self.hand.calculate_status(), dealer_original_value), 'continue']
+            values[continue_value] = 'continue'
+            double_bet_value = self.fg_values_matrix[(self.hand.calculate_status(), dealer_original_value), 'double bet']
+            values[double_bet_value] = 'double bet'
+
+            max = self.calculate_maximum_from_vector(values)
+
+            return values[max]
+
+        return 'stand'
+        # Returns true if the player chooses to stand
+        # Returns false if the player chooses to get another card
 
     def make_move(self, dealer_original_value, training_flag):
 
-        while not (self.stand(dealer_original_value, training_flag)):
-            print 'Action: Asks for a card'
-            new_card = self.game.get_deck().give_a_card()
-            self.get_card(new_card)
-            print str(new_card.rank) + ' of ' + str(new_card.suit)
+        decision = ''
 
+        while not (decision == 'stand'):
+
+            decision = self.take_decision(dealer_original_value, training_flag)
+
+            if (decision == 'continue'):
+
+                print 'Action: Asks for a card'
+                new_card = self.game.get_deck().give_a_card()
+                self.get_card(new_card)
+                print str(new_card.rank) + ' of ' + str(new_card.suit)
+
+            elif (decision == 'stand'):
+
+                print 'Action: Stand'
+
+            elif (decision == 'split'):
+
+                #TODO: Implement
+                pass
+
+            elif (decision == 'double bet'):
+
+                print 'Player doubles the bet\n'
+                print 'Action: Asks for a card'
+                new_card = self.game.get_deck().give_a_card()
+                self.get_card(new_card)
+                print str(new_card.rank) + ' of ' + str(new_card.suit)
+
+                if (self.calculate_value() <= 20):
+                    self.temp_state_action.append(((self.hand.calculate_status(), dealer_original_value), 'stand'))
+
+                #This means, if you double-betted, then you MUST ask stand after getting one more card!
+                decision = 'stand'
 
     #the fg_values that are updated, are those that take you to directly win or lose. The previous values do not get updated
     def update_fg_values(self, result):
@@ -222,9 +253,15 @@ class HumanPlayer(Player):
         print str(self.hand.cards[0].rank) + ' of ' + str(self.hand.cards[0].suit)
         print str(self.hand.cards[1].rank) + ' of ' + str(self.hand.cards[1].suit) + '\n'
 
+    def calculate_maximum_from_vector(self, vector):
 
+        max = -9999999
+        for key in vector:
 
+            if key > max:
+                max = key
 
+        return max
 
 class Dealer(Player):
 
@@ -232,8 +269,19 @@ class Dealer(Player):
         self.game = game
         self.hand = Hand()
 
+    def calculate_value(self):
+
+        #If the dealer has more than 21 and still have an ace, then set that ace from 11 to 1
+        #It will do nothing if the dealer has not 11-valued aces
+        if (self.hand.calculate_value() > 21 and self.hand.have_an_ace()):
+
+            self.hand.set_an_ace_1()
+
+        return self.hand.calculate_value()
+
 
     def make_move(self, player_value):
+
 
         while(self.calculate_value() < player_value and player_value <= 21 and self.calculate_value() < 17):
             print '\n Dealer Action: Asks for a card '

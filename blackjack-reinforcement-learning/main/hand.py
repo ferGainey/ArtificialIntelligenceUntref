@@ -59,3 +59,14 @@ class Hand:
         if (aces_count > 1): return True
         else: return False
 
+    def set_an_ace_1(self):
+
+        #This will turn to 1 the first found ace
+        for card in self.cards:
+
+            if (card.get_value == 11):
+
+                card.set_value(1)
+                break
+
+
