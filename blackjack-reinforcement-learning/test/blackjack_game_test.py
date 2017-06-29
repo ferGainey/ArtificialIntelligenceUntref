@@ -9,6 +9,7 @@ class TestBlackjackGame(unittest.TestCase):
         self.blackjack_game = BlackjackGame()
 
     def test_something(self):
+        self.blackjack_game.start_game(750, 100)
         self.assertEqual(1, 1)
 
 #sdffsdfsdfd

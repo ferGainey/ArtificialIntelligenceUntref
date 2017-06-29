@@ -51,6 +51,13 @@ class Hand:
         else:
             return False
 
+    def has_two_equal_ranked_cards(self):
+
+        if (self.cards[0].get_rank() == self.cards[1].get_rank()):
+            return True
+        else:
+            return False
+
     def have_an_ace(self):
         for card in self.cards:
             if (card.rank == 'Ace'):

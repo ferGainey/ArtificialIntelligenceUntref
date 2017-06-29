@@ -34,7 +34,6 @@ class HumanPlayer(Player):
     actions = []
     states = []
     fg_values_matrix = {}
-    split_matrix = {}
     temp_state_action = []
 
     def __init__(self, game, coins):
@@ -44,11 +43,11 @@ class HumanPlayer(Player):
         #the actions are continue or stand. Split and bet more coins will be developed later
         self.actions = ['continue', 'stand', 'double bet', 'split']
         """
-        The human player can take decisions only between 2 and 20. The '2' case is the lowest initial hand that the human
-        can receive (two Aces). And the '20' case is the highest value that human can obtain without winning or loosing
+        The human player can take decisions only between 1 and 20. The '1' case is the lowest initial hand that the human
+        can receive (two Aces, and make split). And the '20' case is the highest value that human can obtain without winning or loosing
         that round.
         """
-        for i in range(2,21):
+        for i in range(1,21):
             #The lowest value card that the dealer can receive is 1 (an Ace) and the highest is 11 (Soft Ace)
             #In this initial implementation the Ace will have one unique value: 1. Later it can be 1 or 11. (in progress)
             for j in range(1,12):
@@ -67,9 +66,6 @@ class HumanPlayer(Player):
 
         #Initialize the Ace possible values. It can be 1 or 11
         #The initial value is 0.5 for both Ace possibility
-        self.split_matrix['yes'] = 0.5
-        self.split_matrix['no'] = 0.5
-
 
 
     def bet(self):
@@ -91,22 +87,8 @@ class HumanPlayer(Player):
     def print_victories(self):
         print 'Player won ' + str(self.victories) + ' times'
 
-    def has_two_equal_valued_cards(self):
-        return self.hand.has_two_equal_valued_cards()
-
-    def wants_to_split(self, training_flag):
-        #Returns true if the player chooses to split
-        #Returns false if the player chooses to keep playing without splitting
-        if (training_flag):
-
-            number = randint(0,9)
-            if (number > 5): return True
-            else: return False
-
-        else:
-
-            if self.split_matrix['yes'] >= self.split_matrix['no']: return True
-            else: return False
+    def has_two_equal_ranked_cards(self):
+        return self.hand.has_two_equal_ranked_cards()
 
     def have_an_ace(self):
         return self.hand.have_an_ace()
@@ -123,7 +105,7 @@ class HumanPlayer(Player):
 
             random_number = randint(0, 9)
             # double bet, only at the first decision
-            if random_number < 5 and len(self.hand.cards) == 2:
+            if random_number < 2 and len(self.hand.cards) == 2:
                 if (self.calculate_value() <= 20):
                     self.temp_state_action.append(((self.hand.calculate_status(), dealer_original_value), 'double bet'))
                     self.double_bet()
@@ -217,16 +199,14 @@ class HumanPlayer(Player):
 
     #the fg_values that are updated, are those that take you to directly win or lose. The previous values do not get updated
     def update_fg_values(self, result):
-        print self.temp_state_action
-        print len(self.temp_state_action)
-        alpha = 0.5  # it can be modified
+        alpha = 0.8  # it can be modified
         gamma = 0.5  # it can be modified, but between 0 and 1
         reward = 0.0
 
         if result == 'win':
-            reward = 0.2
+            reward = 0.2 * self.game.current_player_bet
         elif result == 'lose':
-            reward = -0.2
+            reward = -0.2 * self.game.current_player_bet
 
         terminal_s_a = self.temp_state_action[len(self.temp_state_action) - 1]
         q_s_a = self.fg_values_matrix[self.temp_state_action[len(self.temp_state_action) - 1]]
@@ -250,27 +230,16 @@ class HumanPlayer(Player):
 
                 self.fg_values_matrix[s_a] = (1 - alpha) * q_s_a_x + alpha * (reward + gamma * max(q_values_prime))
 
-
-    def update_split_matrix(self, points):
-        if (points == 2):
-            self.split_matrix['yes'] += 0.04
-
-        elif (points == 0):
-            self.split_matrix['no'] += 0.02
-
-        #If you win 1 and lose 1 split hand, the matrix stays the same
-
-
     def restart_temp_state_action(self):
         self.temp_state_action = []
 
     def can_split(self):
+        if len(self.hand.cards) > 1:
+            #You can only split if you have two and only two cards valued the same
+            if (self.has_two_equal_ranked_cards() and len(self.hand.cards) == 2):
+                return True
 
-        #You can only split if you have two and only two cards valued the same
-        if (self.has_two_equal_valued_cards() and len(self.hand.cards) == 2):
-            return True
-
-        else: return False
+            else: return False
 
     def print_hand(self):
         print str(self.hand.cards[0].rank) + ' of ' + str(self.hand.cards[0].suit)

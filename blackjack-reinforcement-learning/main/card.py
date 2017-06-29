@@ -85,6 +85,9 @@ class Card:
     def get_value(self):
         return self.value
 
+    def get_rank(self):
+        return self.rank
+
     def set_value(self, value):
 
         if (self.rank == 'Ace'):

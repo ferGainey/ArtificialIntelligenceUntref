@@ -18,8 +18,8 @@
       <file leaf-file-name="blackjack_game_test.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/blackjack_game_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="26" lean-forward="true" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
+            <state relative-caret-position="135">
+              <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
               <folding>
                 <element signature="e#0#38#0" expanded="true" />
               </folding>
@@ -30,18 +30,30 @@
       <file leaf-file-name="players.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main/players.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4350">
-              <caret line="308" column="14" lean-forward="false" selection-start-line="308" selection-start-column="14" selection-end-line="308" selection-end-column="14" />
+            <state relative-caret-position="660">
+              <caret line="46" column="45" lean-forward="false" selection-start-line="46" selection-start-column="45" selection-end-line="46" selection-end-column="45" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="blackjack_game.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="play_blackjack.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/main/play_blackjack.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="310">
+              <caret line="27" column="19" lean-forward="false" selection-start-line="27" selection-start-column="19" selection-end-line="27" selection-end-column="19" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="blackjack_game.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main/blackjack_game.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="175">
-              <caret line="50" column="74" lean-forward="true" selection-start-line="50" selection-start-column="74" selection-end-line="50" selection-end-column="74" />
+            <state relative-caret-position="103">
+              <caret line="20" column="88" lean-forward="true" selection-start-line="20" selection-start-column="88" selection-end-line="20" selection-end-column="88" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -52,8 +64,8 @@
       <file leaf-file-name="card.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main/card.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1200">
-              <caret line="80" column="0" lean-forward="false" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
+            <state relative-caret-position="1320">
+              <caret line="88" column="24" lean-forward="false" selection-start-line="88" selection-start-column="24" selection-end-line="88" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -62,12 +74,9 @@
       <file leaf-file-name="hand.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main/hand.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="400">
-              <caret line="27" column="30" lean-forward="false" selection-start-line="27" selection-start-column="30" selection-end-line="27" selection-end-column="30" />
-              <folding>
-                <marker date="1498701492933" expanded="true" signature="11:1824" ph="..." />
-                <marker date="1498701492933" expanded="true" signature="199:298" ph="..." />
-              </folding>
+            <state relative-caret-position="275">
+              <caret line="56" column="22" lean-forward="true" selection-start-line="56" selection-start-column="22" selection-end-line="56" selection-end-column="22" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -87,7 +96,6 @@
       <find>Human Player WIN. (Ha</find>
       <find>19, 5</find>
       <find>fla</find>
-      <find>print</find>
       <find>END</find>
       <find>prize</find>
       <find>priz</find>
@@ -102,24 +110,34 @@
       <find>DA</find>
       <find>da</find>
       <find>end</find>
-      <find>split</find>
       <find>compute</find>
+      <find>wants_to_spl</find>
+      <find>14s</find>
+      <find>17s</find>
       <find>spl</find>
+      <find>spli</find>
+      <find>action</find>
+      <find>current_player_b</find>
+      <find>split</find>
+      <find>can_sp</find>
+      <find>print</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/main/card.py" />
         <option value="$PROJECT_DIR$/main/deck_of_cards.py" />
         <option value="$PROJECT_DIR$/test/player_test.py" />
         <option value="$PROJECT_DIR$/test/players_test.py" />
         <option value="$PROJECT_DIR$/test/deck_of_cards_test.py" />
         <option value="$PROJECT_DIR$/test/card_test.py" />
+        <option value="$PROJECT_DIR$/main/play_black_jack.py" />
+        <option value="$PROJECT_DIR$/main/card.py" />
         <option value="$PROJECT_DIR$/main/hand.py" />
-        <option value="$PROJECT_DIR$/test/blackjack_game_test.py" />
         <option value="$PROJECT_DIR$/main/players.py" />
+        <option value="$PROJECT_DIR$/test/blackjack_game_test.py" />
         <option value="$PROJECT_DIR$/main/blackjack_game.py" />
+        <option value="$PROJECT_DIR$/main/play_blackjack.py" />
       </list>
     </option>
   </component>
@@ -459,47 +477,47 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.29 at 00h 49m 40s.xml">
+    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.29 at 03h 58m 41s.xml">
       <configuration name="Unittests in blackjack_game_test" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.29 at 01h 04m 23s.xml">
+    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.29 at 03h 59m 46s.xml">
       <configuration name="Unittests in blackjack_game_test" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.29 at 01h 07m 50s.xml">
+    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.29 at 04h 04m 09s.xml">
       <configuration name="Unittests in blackjack_game_test" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.29 at 01h 08m 24s.xml">
+    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.29 at 04h 09m 54s.xml">
       <configuration name="Unittests in blackjack_game_test" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.29 at 01h 09m 53s.xml">
+    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.29 at 04h 12m 19s.xml">
       <configuration name="Unittests in blackjack_game_test" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.29 at 01h 13m 27s.xml">
+    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.29 at 04h 13m 48s.xml">
       <configuration name="Unittests in blackjack_game_test" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.29 at 01h 15m 40s.xml">
+    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.29 at 04h 14m 16s.xml">
       <configuration name="Unittests in blackjack_game_test" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.29 at 01h 17m 01s.xml">
+    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.29 at 04h 14m 55s.xml">
       <configuration name="Unittests in blackjack_game_test" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.29 at 01h 31m 01s.xml">
+    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.29 at 04h 27m 55s.xml">
       <configuration name="Unittests in blackjack_game_test" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.29 at 01h 36m 38s.xml">
+    <history-entry file="Unittests_in_blackjack_game_test - 2017.06.29 at 04h 29m 39s.xml">
       <configuration name="Unittests in blackjack_game_test" configurationId="tests" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1301" height="772" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24980783" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.7600596" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4262295" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -561,10 +579,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="5" column="23" lean-forward="true" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
-          <folding>
-            <marker date="1498701492933" expanded="true" signature="11:1824" ph="..." />
-            <marker date="1498701492933" expanded="true" signature="199:298" ph="..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -717,27 +732,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main/card.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1200">
-          <caret line="80" column="0" lean-forward="false" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
+        <state relative-caret-position="1320">
+          <caret line="88" column="24" lean-forward="false" selection-start-line="88" selection-start-column="24" selection-end-line="88" selection-end-column="24" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main/hand.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="27" column="30" lean-forward="false" selection-start-line="27" selection-start-column="30" selection-end-line="27" selection-end-column="30" />
-          <folding>
-            <marker date="1498701492933" expanded="true" signature="11:1824" ph="..." />
-            <marker date="1498701492933" expanded="true" signature="199:298" ph="..." />
-          </folding>
+        <state relative-caret-position="275">
+          <caret line="56" column="22" lean-forward="true" selection-start-line="56" selection-start-column="22" selection-end-line="56" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/blackjack_game_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="26" lean-forward="true" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
+        <state relative-caret-position="135">
+          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding>
             <element signature="e#0#38#0" expanded="true" />
           </folding>
@@ -746,18 +758,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main/players.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4350">
-          <caret line="308" column="14" lean-forward="false" selection-start-line="308" selection-start-column="14" selection-end-line="308" selection-end-column="14" />
+        <state relative-caret-position="660">
+          <caret line="46" column="45" lean-forward="false" selection-start-line="46" selection-start-column="45" selection-end-line="46" selection-end-column="45" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main/blackjack_game.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="50" column="74" lean-forward="true" selection-start-line="50" selection-start-column="74" selection-end-line="50" selection-end-column="74" />
+        <state relative-caret-position="103">
+          <caret line="20" column="88" lean-forward="true" selection-start-line="20" selection-start-column="88" selection-end-line="20" selection-end-column="88" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/play_blackjack.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="310">
+          <caret line="27" column="19" lean-forward="false" selection-start-line="27" selection-start-column="19" selection-end-line="27" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
