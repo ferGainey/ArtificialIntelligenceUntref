@@ -2,6 +2,7 @@ from deck_of_cards import DeckOfCards
 from players import Dealer
 from players import Player
 from players import HumanPlayer
+import copy
 
 
 class BlackjackGame:
@@ -46,7 +47,7 @@ class BlackjackGame:
             print '\n\nReal hand #' + str(i) + '\n'
             self.begin_hand(training_flag)
             self.deck_of_cards.restart_deck_of_cards()
-            #print 'Q-Matrix: ' + str(self.player.fg_values_matrix) + '\n'
+            print 'Q-Matrix: ' + str(self.player.fg_values_matrix) + '\n'
             #print 'Split-Matrix: ' + str(self.player.split_matrix) + '\n'
 
         self.player.print_victories()
@@ -167,11 +168,34 @@ class BlackjackGame:
         #instead of one. Each hand with one of the cards, and each hand
         #with the same bet. Obviously, if the player chooses to split, he
         #must bet again the same quantity.
+        player_hand_a = self.player.hand
+        dealer_hand_a = self.dealer.hand
+        player_hand_b = copy.deepcopy(self.player.hand)
+        dealer_hand_b = copy.deepcopy(self.dealer.hand)
         print 'SPLIT!\n'
         print '----Split hand 1\n'
-        self.begin_hand(training_flag)
+        self.begin_one_split_hand(training_flag, player_hand_a, dealer_hand_a)
+        aux_temp_state_action_a = copy.deepcopy(self.player.temp_state_action)
         print '----Split hand 2\n'
-        self.begin_hand(training_flag)
+        self.player.temp_state_action.append(((player_hand_b.calculate_status(),dealer_hand_b.calculate_value()), 'split'))
+        self.begin_one_split_hand(training_flag, player_hand_b, dealer_hand_b)
+        self.dealer.make_move(0) #0 because it play with 2 hands at the same time
+        player_value = self.player.calculate_value()
+        result = ''
+        #hand b
+        result = self.compute_and_print_hand_results(self.current_player_bet, player_value, result, training_flag)
+        #hand a
+        self.player.temp_state_action = aux_temp_state_action_a
+        result = self.compute_and_print_hand_results(self.current_player_bet, player_value, result, training_flag)
+        return result
+
+
+
+
+    def begin_one_split_hand(self, training_flag, player_hand, dealer_hand):
+        dealer_original_value = dealer_hand.calculate_value()
+        self.player.hand = player_hand
+        self.player.make_move(dealer_original_value, training_flag)
 
 
 

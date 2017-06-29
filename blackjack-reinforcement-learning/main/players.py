@@ -306,7 +306,7 @@ class Dealer(Player):
     def make_move(self, player_value):
 
 
-        while(self.calculate_value() < player_value and player_value <= 21 and self.calculate_value() < 17):
+        while(player_value <= 21 and self.calculate_value() < 17):
             print '\n Dealer Action: Asks for a card '
             new_card = self.game.get_deck().give_a_card()
             self.get_card(new_card)
