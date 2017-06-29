@@ -33,7 +33,8 @@ class BlackjackGame:
 
         training_flag = False #I'm tired of training, I want to play seriously!!
         print 'END OF TRAINING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-
+        self.player.print_victories()
+        self.dealer.print_victories()
         #On the while condition we could ask if the player wants to keep playing,
         #But here we prefer the automated player to play a fixed set of hands, let's say, 250
         real_hands_to_play = 250
@@ -41,7 +42,8 @@ class BlackjackGame:
         while (self.not_ended() and i < real_hands_to_play):
 
             i+=1
-            print 'Real hand n' + str(i) + '\n'
+            print '--------------------------------------------------'
+            print '\n\nReal hand #' + str(i) + '\n'
             self.begin_hand(training_flag)
             self.deck_of_cards.restart_deck_of_cards()
             #print 'Q-Matrix: ' + str(self.player.fg_values_matrix) + '\n'
@@ -77,14 +79,10 @@ class BlackjackGame:
         self.player.get_card(self.deck_of_cards.give_a_card())
         self.player.print_hand()
 
-        if (self.player.calculate_value() == 21):
+        #if (self.player.calculate_value() == 21):
 
-            print 'BlackJack! You win'
-            self.player.get_prize(3*self.current_player_bet)
-            self.player.compute_victory()
-            return 'win'
 
-        elif (self.player.calculate_value() == self.dealer.calculate_value()):
+        if (self.player.calculate_value() == self.dealer.calculate_value()):
 
             print "It's a tie! Your bet is refunded"
             self.player.get_prize(self.current_player_bet)
@@ -98,15 +96,7 @@ class BlackjackGame:
 
             if (move == 'split'):
 
-                points = self.split_hand(training_flag)
-
-                if (points == 2): #The split was positive
-                    self.player.update_fg_values('win')
-                elif (points == 0): #The split was negative
-                    self.player.update_fg_values('lose')
-
-                self.player.restart_temp_state_action()
-                return ''
+                self.split_hand(training_flag)
 
             else:
 
@@ -123,7 +113,16 @@ class BlackjackGame:
 
     #This should be refactored
     def compute_and_print_hand_results(self, bet, player_value, result, training_flag):
-        if player_value > 21:
+        if player_value == 21:
+            print 'BlackJack! You win'
+            print '-------------------------------------------------'
+            self.player.get_prize(2 * self.current_player_bet)
+            if training_flag and (len(self.player.temp_state_action) > 0):
+                self.player.update_fg_values('win')
+            elif not training_flag:
+                self.player.compute_victory()
+            result = 'win'
+        elif player_value > 21:
             print ' \nThe Dealer WINS! (Human got over 21)'
             print '-------------------------------------------------'
             if training_flag:
@@ -163,46 +162,17 @@ class BlackjackGame:
             self.player.restart_temp_state_action()
         return result
 
-    def compute_and_print_split_game_results(self, results):
-
-        for result in results:
-            if (result == 'win'):
-                print '\n----Human Player WINS a Split Game'
-                print '-------------------------------------------------'
-                self.player.compute_victory()
-
-            elif (result == 'tie'):
-                print '\n----The Split Game is a TIE'
-                print '-------------------------------------------------'
-
-            elif (result == 'lose'):
-                print '\n----Dealer WINS a Split Game'
-                print '-------------------------------------------------'
-                self.dealer.compute_victory()
-
     def split_hand(self, training_flag):
         #If the player chooses to split, then two 'sub-hands' are played
         #instead of one. Each hand with one of the cards, and each hand
         #with the same bet. Obviously, if the player chooses to split, he
         #must bet again the same quantity.
-        points = 0
         print 'SPLIT!\n'
         print '----Split hand 1\n'
-        result1 = self.begin_hand(training_flag)
+        self.begin_hand(training_flag)
         print '----Split hand 2\n'
-        result2 = self.begin_hand(training_flag)
+        self.begin_hand(training_flag)
 
-        if (result1 == 'win'): points +=1
-
-        if (result2 == 'win'): points +=1
-
-        results = []
-        results.append(result1)
-        results.append(result2)
-
-        self.compute_and_print_split_game_results(results)
-
-        return points
 
 
 
