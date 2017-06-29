@@ -23,6 +23,7 @@ class BlackjackGame:
     def start_game(self, training_repetitions, real_games_repetitions):
         self.player.victories = 0
         self.dealer.victories = 0
+        self.player.coins = 10000
         self.active = True  # As the game begins, we set this flag the True value
         training_flag = True #It's time to train!
         training_repetitions = training_repetitions #this number can be changed
@@ -49,6 +50,8 @@ class BlackjackGame:
 
         self.player.print_victories()
         self.dealer.print_victories()
+        print 'Initial coins: ' + '10000' #it starts with 10000 coins
+        print 'Coins (after the game): ' + str(self.player.coins)
 
 
     def not_ended(self):
@@ -62,7 +65,7 @@ class BlackjackGame:
         return self.deck_of_cards
 
     def begin_hand(self, training_flag):
-        self.current_player_bet = self.player.bet()
+        self.current_player_bet = self.player.bet(training_flag)
 
         self.clean_hands() #Makes sure both the dealer and the player have empty hands
 
@@ -99,16 +102,16 @@ class BlackjackGame:
         if player_value == 21:
             print 'BlackJack! You win'
             print '-------------------------------------------------'
-            self.player.get_prize(2 * self.current_player_bet)
             if training_flag and (len(self.player.temp_state_action) > 0):
                 self.player.update_fg_values('win')
             elif not training_flag:
                 self.player.compute_victory()
+                self.player.get_prize(1.5 * 2 * self.current_player_bet)
             result = 'win'
         elif (self.player.calculate_value() == self.dealer.calculate_value()):
-
+            if not training_flag:
+                self.player.get_prize(self.current_player_bet)
             print "It's a tie! Your bet is refunded"
-            self.player.get_prize(self.current_player_bet)
             return 'tie'
         elif player_value > 21:
             print ' \nThe Dealer WINS! (Human got over 21)'
@@ -117,26 +120,27 @@ class BlackjackGame:
                 self.player.update_fg_values('lose')
             else:
                 self.dealer.compute_victory()
+                self.player.get_prize(self.current_player_bet)
             result = 'lose'
             self.player.restart_temp_state_action()
         elif self.dealer.calculate_value() > 21:
             print '\nHuman Player WINS! (Dealer got over 21)'
             print '-------------------------------------------------'
-            self.player.get_prize(2 * bet)
             if training_flag:
                 self.player.update_fg_values('win')
             else:
                 self.player.compute_victory()
+                self.player.get_prize(2 * bet)
             result = 'win'
             self.player.restart_temp_state_action()
         elif (21 - player_value) < (21 - self.dealer.calculate_value()):
             print "\nHuman Player WINS! (Has a better score)"
             print '-------------------------------------------------'
-            self.player.get_prize(2 * bet)
             if training_flag:
                 self.player.update_fg_values('win')
             else:
                 self.player.compute_victory()
+                self.player.get_prize(2 * bet)
             result = 'win'
             self.player.restart_temp_state_action()
         elif (21 - player_value) > (21 - self.dealer.calculate_value()):

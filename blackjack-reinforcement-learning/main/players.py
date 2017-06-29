@@ -68,10 +68,11 @@ class HumanPlayer(Player):
         #The initial value is 0.5 for both Ace possibility
 
 
-    def bet(self):
+    def bet(self, training_flag):
         #This must get the player's bet from the command line
         #Returns the bet
-        self.coins -= 1
+        if not training_flag:
+            self.coins -= 1
         return 1 #The automated player only bets 1 coin
 
     def double_bet(self):
